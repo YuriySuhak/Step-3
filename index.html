@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Site for Clinic</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+
+<header class="header container">
+		<img src="img/logo.png" alt="clinic logo" class="header-logo">
+		<div class="buttons">
+			<button id="loginBtn">Login</button>
+			<button id="createCardBtn">Create Card</button>
+		</div>
+</header>
+
+<main class="main container">
+
+	<form action="">Filters..............</form>
+
+	<div class="cards">
+		<p class="cards-empty">No items have been added</p>
+	</div>
+
+
+<div class="modal-wrapper">
+	<form class="new-card" id="new-card">
+		<button id="closeModal" class="close-btn">x</button>
+		<select name="doctor" required id="selectDoctor">
+			<option disabled selected value>Выберите врача</option>
+			<option value="cardiologist">Кардиолог</option>
+			<option value="dentist">Стоматолог</option>
+			<option value="therapist">Терапевт</option>
+		</select>
+		<fieldset id="optionalInputs"></fieldset>
+
+		<input class="create-new-card-btn" type="submit" id="create-new-card-btn" value="Создать">
+	</form>
+</div>
+</main>
+
+<footer class="footer container">Copyright 2019</footer>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="js/script.js"></script>
+
+
+
+</body>
+</html>
