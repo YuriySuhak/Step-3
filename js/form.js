@@ -84,6 +84,21 @@ class Form {
 
         form.append(nameInputLabel, goalInputLabel, urgencySelectLabel,  statusSelectLabel, summaryInputLabel);
     }
+
+    submitForm(visit){
+        const object = {
+            doctor: visit.doctor,
+            title: visit.goal,
+            description: visit.summary,
+            status: visit.status,
+            priority: visit.urgency,
+            content: visit.content
+        };
+        cards.push(object);
+        console.log(object);
+        console.log(cards);
+        $("#new-card").parent().remove();
+    }
 }
 
 class FormDentist extends Form {
@@ -116,27 +131,6 @@ class FormDentist extends Form {
         dentistsLabel.append(dentists);
 
         form.append(lastVisitDateInputLabel, dentistsLabel);
-    }
-    submitForm() {
-        $("#new-card").on("submit", function(e){
-            e.preventDefault();
-            const data = ($(this).serializeArray());
-            console.log(data);
-            const visit = new FormDentist(data[6].value, data[1].value, data[0].value, data[2].value, data[4].value, data[3].value, data[5].value, data[7].value,)
-            console.log(visit);
-            const object = {
-                doctor: visit.doctor,
-                title: visit.goal,
-                description: visit.summary,
-                status: visit.status,
-                priority: visit.urgency,
-                content: visit.content
-            };
-            cards.push(object);
-            console.log(object);
-            console.log(cards);
-            $("#new-card").parent().remove();
-        })
     }
 }
 
@@ -197,27 +191,6 @@ class FormCardiologist extends Form {
 
         form.append(pressureInputLabel, illnessInputLabel, weightIndexInputLabel, ageInputLabel, cardiologistsLabel);
     }
-    submitForm(){
-        $("#new-card").on("submit", function(e){
-            e.preventDefault();
-            const data = ($(this).serializeArray());
-            console.log(data);
-            const visit = new FormCardiologist(data[6].value, data[8].value, data[7].value, data[9].value, data[1].value, data[0].value, data[2].value, data[4].value, data[3].value, data[5].value, data[10].value)
-            console.log(visit);
-            const object = {
-                doctor: visit.doctor,
-                title: visit.goal,
-                description: visit.summary,
-                status: visit.status,
-                priority: visit.urgency,
-                content: visit.content
-            };
-            cards.push(object);
-            console.log(object);
-            console.log(cards);
-            $("#new-card").parent().remove();
-        })
-    }
 }
 
 class FormTherapist extends Form {
@@ -250,43 +223,46 @@ class FormTherapist extends Form {
 
         form.append(ageInputLabel, therapistsLabel);
     }
-
-    submitForm(){
-        $("#new-card").on("submit", function(e){
-            e.preventDefault();
-            const data = ($(this).serializeArray());
-            console.log(data);
-            const visit = new FormTherapist(data[6].value, data[1].value, data[0].value, data[2].value, data[4].value, data[3].value, data[5].value, data[7].value,)
-            console.log(visit);
-            const object = {
-                doctor: visit.doctor,
-                title: visit.goal,
-                description: visit.summary,
-                status: visit.status,
-                priority: visit.urgency,
-                content: visit.content
-            };
-            cards.push(object);
-            console.log(object);
-            console.log(cards);
-            $("#new-card").parent().remove();
-        })
-    }
 }
 
 function modalNewVisit() {
     const optionalInputs = document.getElementById("optionalInputs");
     const selectedDoctor = document.getElementById("selectDoctor");
     selectedDoctor.addEventListener("change", (e)=> {
-        if (e.currentTarget.value === "cardiologist") {
-            new FormCardiologist().createInputs(optionalInputs);
-            new FormCardiologist().submitForm();
-        } else if (e.currentTarget.value === "dentist"){
-            new FormDentist().createInputs(optionalInputs);
-            new FormDentist().submitForm();
-        } else if (e.currentTarget.value === "therapist"){
-            new FormTherapist().createInputs(optionalInputs);
-            new FormTherapist().submitForm();
+        switch (e.currentTarget.value){
+            case "cardiologist":
+                new FormCardiologist().createInputs(optionalInputs);
+                break;
+            case "dentist":
+                new FormDentist().createInputs(optionalInputs);
+                break;
+            case "therapist":
+                new FormTherapist().createInputs(optionalInputs);
+                break;
         }
     });
+
+    $("#new-card").on("submit", function(e){
+        e.preventDefault();
+        const data = ($(this).serializeArray());
+        console.log(data);
+        switch (selectedDoctor.value) {
+            case "cardiologist":
+                const visitCardiologist = new FormCardiologist(data[6].value, data[8].value, data[7].value, data[9].value, data[1].value, data[0].value, data[2].value, data[4].value, data[3].value, data[5].value, data[10].value)
+                console.log(visitCardiologist);
+                new FormCardiologist().submitForm(visitCardiologist);
+                break;
+            case "dentist":
+                const visitDentist = new FormDentist(data[6].value, data[1].value, data[0].value, data[2].value, data[4].value, data[3].value, data[5].value, data[7].value,)
+                console.log(visitDentist);
+                new FormDentist().submitForm(visitDentist);
+                break;
+            case "therapist":
+                const visitTherapist = new FormTherapist(data[6].value, data[1].value, data[0].value, data[2].value, data[4].value, data[3].value, data[5].value, data[7].value,)
+                console.log(visitTherapist);
+                new FormTherapist().submitForm(visitTherapist);
+                break;
+        }
+    })
 }
+
