@@ -14,7 +14,7 @@
 }
 
 .disp-block {
-    display: block;
+    display: inline-block;
 }
 .disp-none {
     display: none;
