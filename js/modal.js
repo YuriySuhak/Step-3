@@ -49,6 +49,9 @@ class Modal {
         const loginInput = document.createElement('input');
         loginInput.type = 'email';
         loginInput.id = 'email';
+        // auto Value
+        loginInput.value = 'alexandr.sugak@gmail.com';
+        // auto Value
         loginLabel.append(loginInput);
         modalForm.append(loginLabel);
         const passwordLabel = document.createElement('label');
@@ -56,6 +59,9 @@ class Modal {
         const passwordInput = document.createElement('input');
         passwordInput.type = 'password';
         passwordInput.id = 'password';
+        // auto Value
+        passwordInput.value = 'tree00';
+        // auto Value
         passwordLabel.append(passwordInput);
         modalForm.append(passwordLabel);
         const loginBtn = document.createElement('input');
@@ -138,18 +144,8 @@ class Modal {
         createNewCardBtn.id = 'create-new-card-btn';
         createNewCardBtn.value = 'Create';
         createNewCardBtn.classList.add('create-new-card-btn');
-        // modalForm.append(createNewCardBtn);
 
-        // modalNewVisit();
-        selectDoctor.addEventListener("change", (e)=> {
-            if (e.currentTarget.value === "cardiologist") {
-                VisitToCardiologist.createInputs(optionalInputs);
-            } else if (e.currentTarget.value === "dentist"){
-                VisitToDentist.createInputs(optionalInputs);
-            } else if (e.currentTarget.value === "therapist"){
-                VisitToTherapist.createInputs(optionalInputs);
-            }
-            modalForm.append(createNewCardBtn);
-        });
+        modalNewVisit();
+        modalForm.append(createNewCardBtn);
     }
 }

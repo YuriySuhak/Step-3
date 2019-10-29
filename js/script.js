@@ -276,20 +276,22 @@ class VisitToTherapist extends Visit {
     }
 }
 
+function modalNewVisit() {
+    const optionalInputs = document.getElementById("optionalInputs");
+    const selectedDoctor = document.getElementById("selectDoctor");
+    selectedDoctor.addEventListener("change", (e)=> {
+        if (e.currentTarget.value === "cardiologist") {
+            new VisitToCardiologist().createInputs(optionalInputs);
+            new VisitToCardiologist().submitForm() ;
+        } else if (e.currentTarget.value === "dentist"){
+            new VisitToDentist().createInputs(optionalInputs);
+            new VisitToDentist().submitForm();
+        } else if (e.currentTarget.value === "therapist"){
+            new VisitToTherapist().createInputs(optionalInputs);
+            new VisitToTherapist().submitForm();
+        }
+    });
+}
 
-const optionalInputs = document.getElementById("optionalInputs");
-const selectedDoctor = document.getElementById("selectDoctor");
-selectedDoctor.addEventListener("change", (e)=> {
-    if (e.currentTarget.value === "cardiologist") {
-        new VisitToCardiologist().createInputs(optionalInputs);
-        new VisitToCardiologist().submitForm() ;
-    } else if (e.currentTarget.value === "dentist"){
-        new VisitToDentist().createInputs(optionalInputs);
-        new VisitToDentist().submitForm();
-    } else if (e.currentTarget.value === "therapist"){
-        new VisitToTherapist().createInputs(optionalInputs);
-        new VisitToTherapist().submitForm();
-    }
-});
 
 const cards = [];
