@@ -200,8 +200,8 @@ class VisitToTherapist extends Visit {
     }
 }
 
-const optionalInputs = document.getElementById("optionalInputs");
 
+const optionalInputs = document.getElementById("optionalInputs");
 const selectedDoctor = document.getElementById("selectDoctor");
 selectedDoctor.addEventListener("change", (e)=> {
     if (e.currentTarget.value === "cardiologist") {
@@ -212,6 +212,8 @@ selectedDoctor.addEventListener("change", (e)=> {
         VisitToTherapist.createInputs(optionalInputs);
     }
 });
+
+
 
 const creatNewCardBtn = document.getElementById("create-new-card-btn");
 const newCard = document.getElementById("new-card");

@@ -1,27 +1,117 @@
 
 .container {
-	max-width: 1280px;
-	margin: 0 auto;
+    max-width: 1280px;
+    margin: 0 auto;
 }
-
 
 .header {
-	height: 70px;
-	background-color: #00cbf6;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px 30px;
+    height: 70px;
+    background-color: #069A06;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
 }
+
+.disp-block {
+    display: block;
+}
+.disp-none {
+    display: none;
+}
+
 .main {
-	min-height: 500px;
+    min-height: 500px;
 }
 
 .footer {
-	height: 70px;
-	background-color: #00cbf6;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 10px 30px;
+    height: 70px;
+    background-color: #069A06;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 30px;
 }
+
+.modal {
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+    min-width: 340px;
+    min-height: 140px;
+    padding: 18px;
+    font-family: sans-serif;
+    font-size: 14px;
+    border: 1px solid #1672;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    box-shadow: 0 12px 26px -12px rgba(0, 0, 10, 1);
+}
+
+.modal-title {
+    font-size: 18px;
+    text-align: center;
+    padding-bottom: 12px;
+	margin-bottom: 20px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.modal-close-btn {
+    position: absolute;
+    right: -1px;
+    top: -1px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    opacity: 0.8;
+    color: white;
+    background-color: #343434;
+    border-radius: 0 5px 0 0;
+    cursor: pointer;
+}
+
+.modal-close-btn:hover {
+    opacity: 1;
+}
+
+.modal-close-btn:before, .modal-close-btn:after {
+    position: absolute;
+    right: 15px;
+    top: 5px;
+    content: '';
+    height: 22px;
+    width: 2px;
+    background-color: white;
+}
+
+.modal-close-btn:before {
+    transform: rotate(45deg);
+}
+
+.modal-close-btn:after {
+    transform: rotate(-45deg);
+}
+
+#modal-form, #new-card, #optionalInputs{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#modal-form label, #optionalInputs label, #selectDoctor {
+    margin-bottom: 10px;
+}
+
+#selectDoctor {
+    align-self: center;
+}
+
+#modal-form input, #optionalInputs input {
+    width: 180px;
+}
+
+#modal-form .form-button, #new-card #create-new-card-btn {
+    width: fit-content;
+}
+
