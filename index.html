@@ -12,12 +12,14 @@
 <header class="header container">
 		<img src="img/logo.png" alt="clinic logo" class="header-logo">
 		<div class="buttons">
-			<button id="loginBtn">Login</button>
-			<button id="createCardBtn">Create Card</button>
+<!--			<button id="loginBtn" class="disp-block">Login</button>-->
+<!--			<button id="createCardBtn" class="disp-none">Create Card</button>-->
+			<button id="loginBtn" class="disp-none">Login</button>
+			<button id="createCardBtn" class="">Create Card</button>
 		</div>
 </header>
 
-<main class="main container">
+<main class="main container" id="main">
 
 	<form action="">Filters..............</form>
 
@@ -26,26 +28,28 @@
 	</div>
 
 
-<div class="modal-wrapper">
-	<form class="new-card" id="new-card">
-		<button id="closeModal" class="close-btn">x</button>
-		<select name="doctor" required id="selectDoctor">
-			<option disabled selected value>Выберите врача</option>
-			<option value="cardiologist">Кардиолог</option>
-			<option value="dentist">Стоматолог</option>
-			<option value="therapist">Терапевт</option>
-		</select>
-		<fieldset id="optionalInputs"></fieldset>
+<!--<div class="modal-wrapper">-->
+<!--	<form class="new-card" id="new-card">-->
+<!--		<button id="closeModal" class="close-btn">x</button>-->
+<!--		<select name="doctor" required id="selectDoctor">-->
+<!--			<option disabled selected value>Выберите врача</option>-->
+<!--			<option value="cardiologist">Кардиолог</option>-->
+<!--			<option value="dentist">Стоматолог</option>-->
+<!--			<option value="therapist">Терапевт</option>-->
+<!--		</select>-->
+<!--		<fieldset id="optionalInputs"></fieldset>-->
 
-		<input class="create-new-card-btn" type="submit" id="create-new-card-btn" value="Создать">
-	</form>
-</div>
+<!--		<input class="create-new-card-btn" type="submit" id="create-new-card-btn" value="Создать">-->
+<!--	</form>-->
+<!--</div>-->
+
 </main>
 
 <footer class="footer container">Copyright 2019</footer>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="js/modal.js"></script>
 <script src="js/script.js"></script>
 
 
