@@ -179,7 +179,7 @@ cardsCaban.addEventListener('click', (e) => {
     if(e.target.dataset.edit) {
         console.log("dddd");
         let i = e.path[1].dataset.position;
-        new Modal('edit').render();
+        new Modal('newCard').render();
         let autoevent = new Event ('submit');
         const selected = e.target.dataset.doctor;
         // const selectedDoctor = document.getElementById("selectDoctor");
