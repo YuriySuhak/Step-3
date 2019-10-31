@@ -167,6 +167,7 @@ class setValue {
         setValue.prototype.setValueForAll(i);
     }
     setValueForAll(i) {
+
         clientName.value = cards[i].content.name;
     }
 }
