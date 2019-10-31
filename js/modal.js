@@ -95,6 +95,11 @@ class Modal {
                 if (response.data.status === "Success") {
                     authToken = response.data.token;
                     console.log(authToken);
+                    authConfig = {
+                        headers: {
+                            Authorization: `Bearer ${authToken}`
+                        }
+                    };
                     modal.remove();
                     loginBtn.classList.replace('disp-block', "disp-none");
                     createCard.classList.replace('disp-none', "disp-block");
