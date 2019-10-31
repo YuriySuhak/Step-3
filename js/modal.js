@@ -10,6 +10,7 @@ function initialize() {
     createCard.addEventListener('click', () => {
         new Modal('newCard').render();
     });
+
 }
 
 class Modal {
@@ -17,6 +18,7 @@ class Modal {
         this.type = type;
         this.modal = document.createElement('div');
         this.modalTitle = document.createElement('h3');
+        this.modalForm = document.createElement('form');
     }
 
     render() {
@@ -35,14 +37,15 @@ class Modal {
             this.login();
         } else if (this.type === "newCard") {
             this.createForm();
+        } else if (this.type === "edit") {
+            this.editForm();
         }
 
     }
 
     login() {
         this.modalTitle.innerText = 'Log in';
-        const modalForm = document.createElement('form');
-        modalForm.id = 'modal-form';
+        this.modalForm.id = 'modal-form';
         const loginLabel = document.createElement('label');
         loginLabel.innerText = 'email: ';
         const loginInput = document.createElement('input');
@@ -52,7 +55,7 @@ class Modal {
         loginInput.value = 'alexandr.sugak@gmail.com';
         // auto Value
         loginLabel.append(loginInput);
-        modalForm.append(loginLabel);
+        this.modalForm.append(loginLabel);
         const passwordLabel = document.createElement('label');
         passwordLabel.innerText = 'password: ';
         const passwordInput = document.createElement('input');
@@ -62,14 +65,14 @@ class Modal {
         passwordInput.value = 'tree00';
         // auto Value
         passwordLabel.append(passwordInput);
-        modalForm.append(passwordLabel);
+        this.modalForm.append(passwordLabel);
         const loginBtn = document.createElement('input');
         loginBtn.type = 'submit';
         loginBtn.value = 'Login';
         loginBtn.classList.add('form-button');
-        modalForm.append(loginBtn);
-        this.modal.append(modalForm);
-        modalForm.addEventListener('submit', (e) => {
+        this.modalForm.append(loginBtn);
+        this.modal.append(this.modalForm);
+        this.modalForm.addEventListener('submit', (e) => {
             e.preventDefault();
             this.submitLogin();
         })
@@ -113,15 +116,15 @@ class Modal {
     }
 
     createForm() {
+        this.modal.append(this.modalForm);
         this.modalTitle.innerText = 'New Card';
-        const modalForm = document.createElement('form');
-        modalForm.id = 'new-card';
-        this.modal.append(modalForm);
+        this.modalForm.id = 'new-card';
+
         const selectDoctor = document.createElement('select');
         selectDoctor.name = 'doctor';
         selectDoctor.id = 'selectDoctor';
         selectDoctor.required = true;
-        modalForm.append(selectDoctor);
+        this.modalForm.append(selectDoctor);
         const selectOption = document.createElement('option');
         selectOption.disabled = true;
         selectOption.selected = true;
@@ -142,7 +145,7 @@ class Modal {
 
         const optionalInputs = document.createElement('fieldset');
         optionalInputs.id = 'optionalInputs';
-        modalForm.append(optionalInputs);
+        this.modalForm.append(optionalInputs);
 
         const createNewCardBtn = document.createElement('input');
         createNewCardBtn.type = 'submit';
@@ -151,7 +154,27 @@ class Modal {
         createNewCardBtn.classList.add('create-new-card-btn');
 
         modalNewVisit();
-        modalForm.append(createNewCardBtn);
+        this.modalForm.append(createNewCardBtn);
+    }
+
+    editForm() {
+        this.modal.append(this.modalForm);
+        this.modalTitle.innerText = 'Edit Card';
+        this.modalForm.id = 'edit-card';
+
+        const optionalInputs = document.createElement('fieldset');
+        optionalInputs.id = 'optionalInputs';
+        this.modalForm.append(optionalInputs);
+
+        const editCardBtn = document.createElement('input');
+        editCardBtn.type = 'submit';
+        editCardBtn.id = 'edit-card-btn';
+        editCardBtn.value = 'Edit';
+        editCardBtn.classList.add('edit-card-btn');
+
+
+        // editCard();
+        this.modalForm.append(editCardBtn);
     }
 }
 
