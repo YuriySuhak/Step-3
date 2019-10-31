@@ -30,32 +30,35 @@ creatElemCard (client, doctorName, cardId, doctor, i) {
         elemMore.innerText = 'show more data';
         elemMore.classList.add('btn-more');
         elemMore.dataset.doctor = doctor;
-        const edit = document.createElement('button');
-        edit.innerText = 'edit visit';
-        edit.dataset.i = i;
-        edit.dataset.edit = "edit";
+        const editBtn = document.createElement('button');
+        editBtn.innerText = 'edit visit';
+        editBtn.dataset.i = i;
+        editBtn.dataset.edit = "edit";
+        editBtn.dataset.doctor = doctor;
     cardsCaban.appendChild(elemCard);
     elemCard.appendChild(elemClient);
     elemClient.appendChild(elemClientName);
     elemCard.appendChild(elemDoctor);
     elemDoctor.appendChild(elemDoctorName);
     elemCard.appendChild(elemMore);
-    elemCard.appendChild(edit);
+    elemCard.appendChild(editBtn);
     elemCard.id = cardId;
 }
 creatCard () {
-    visitCard.prototype.removeElemCard();
+        if(cards.length > 0) {
+            visitCard.prototype.removeElemCard();
 
-        let doctorName = '';
-        let client = '';
-        let cardId = '';
-        let doctor = '';
-        for (let i = 0; i < cards.length; i++) {
-            client = cards[i].content.name;
-            doctorName = cards[i].content.doctorName;
-            doctor = cards[i].doctor;
-            cardId = cards[i].id;
-            visitCard.prototype.creatElemCard(client, doctorName, cardId, doctor, i);
+            let doctorName = '';
+            let client = '';
+            let cardId = '';
+            let doctor = '';
+            for (let i = 0; i < cards.length; i++) {
+                client = cards[i].content.name;
+                doctorName = cards[i].content.doctorName;
+                doctor = cards[i].doctor;
+                cardId = cards[i].id;
+                visitCard.prototype.creatElemCard(client, doctorName, cardId, doctor, i);
+        }
         }
 }
 }
@@ -81,11 +84,12 @@ creatAddField(target, i) {
 <p>last Visit Date:<span>${lastVisitDate}</span></p>
 <p>doctor Name:<span>${doctorName}</span></p>
 `;
-    const edit = document.createElement('button');
-    edit.innerText = 'edit visit';
-    edit.dataset.i = i;
-    edit.dataset.edit = "edit";
-    target.appendChild(edit);
+    const editBtn = document.createElement('button');
+    editBtn.innerText = 'edit visit';
+    editBtn.dataset.i = i;
+    editBtn.dataset.edit = "edit";
+    editBtn.dataset.doctor = doctor;
+    target.appendChild(editBtn);
 }
 }
 class cardCardiologist {
@@ -113,11 +117,12 @@ class cardCardiologist {
 <p>age:<span>${age}</span></p>
 <p>doctor Name:<span>${doctorName}</span></p>
 `;
-        const edit = document.createElement('button');
-        edit.innerText = 'edit visit';
-        edit.dataset.i = i;
-        edit.dataset.edit = "edit";
-        target.appendChild(edit);
+        const editBtn = document.createElement('button');
+        editBtn.innerText = 'edit visit';
+        editBtn.dataset.i = i;
+        editBtn.dataset.edit = "edit";
+        editBtn.dataset.doctor = doctor;
+        target.appendChild(editBtn);
     }
 }
 
@@ -142,18 +147,33 @@ class cardTherapist {
 <p>age:<span>${age}</span></p>
 <p>doctor Name:<span>${doctorName}</span></p>
 `;
-        const edit = document.createElement('button');
-        edit.innerText = 'edit visit';
-        edit.dataset.i = i;
-        edit.dataset.edit = "edit";
-        target.appendChild(edit);
+        const editBtn = document.createElement('button');
+        editBtn.innerText = 'edit visit';
+        editBtn.dataset.i = i;
+        editBtn.dataset.edit = "edit";
+        editBtn.dataset.doctor = doctor;
+        target.appendChild(editBtn);
+    }
+}
+
+class setValue {
+    setValueCardio(i) {
+        setValue.prototype.setValueForAll(i);
+    }
+    setValueDentist(i) {
+        setValue.prototype.setValueForAll(i);
+    }
+    setValueTherapist(i) {
+        setValue.prototype.setValueForAll(i);
+    }
+    setValueForAll(i) {
+        clientName.value = cards[i].content.name;
     }
 }
 
 visitCard.prototype.firstCreat();
-visitCard.prototype.creatCard();
+// visitCard.prototype.creatCard();
 document.body.addEventListener('submit', () => {
-    console.log(cards[0].doctor);
     visitCard.prototype.creatCard();
 });
 cardsCaban.addEventListener('click', (e) => {
@@ -179,16 +199,31 @@ cardsCaban.addEventListener('click', (e) => {
     if(e.target.dataset.edit) {
         console.log("dddd");
         let i = e.path[1].dataset.position;
-        new Modal('newCard').render();
-        let autoevent = new Event ('submit');
-        const selected = e.target.dataset.doctor;
+        console.log(i);
+        new Modal('edit').render();
+        // let autoevent = new Event ('change');
+        // const selected = e.target.dataset.doctor;
         // const selectedDoctor = document.getElementById("selectDoctor");
-        selectedDoctor.value = 'selected';
-        selectedDoctor.dispatchEvent(autoevent);
-        // const editModal = new Modal;
-        // editModal.createForm();
-        const visitDentist = new FormDentist(data[i].value, data[1].value, data[0].value, data[2].value, data[4].value, data[3].value, data[5].value, data[7].value,)
-        console.log(visitDentist);
-        new FormDentist().submitForm(visitDentist);
+        // selectedDoctor.value = selected;
+        // selectedDoctor.dispatchEvent(autoevent);
+        // ----
+        const editForm = document.getElementById("edit-card");
+        const currentDoctor = document.createElement('p');
+        currentDoctor.innerText = `visit to ${e.target.dataset.doctor}`;
+        editForm.parentElement.firstChild.appendChild(currentDoctor);
+        switch (e.target.dataset.doctor){
+            case "cardiologist":
+                new FormCardiologist().createInputs(optionalInputs);
+                setValue.prototype.setValueCardio(i);
+                break;
+            case "dentist":
+                new FormDentist().createInputs(optionalInputs);
+                setValue.prototype.setValueDentist(i);
+                break;
+            case "therapist":
+                new FormTherapist().createInputs(optionalInputs);
+                setValue.prototype.setValueTherapist(i);
+                break;
+        }
     }
 });
