@@ -8,7 +8,6 @@
 </head>
 <body>
 
-
 <header class="header container">
 		<img src="img/logo.png" alt="clinic logo" class="header-logo">
 		<div class="buttons">
@@ -19,7 +18,18 @@
 
 <main class="main container" id="main">
 
-	<form action="">Filters..............</form>
+	<form id="filter-cards">
+		<label>Цель визита: <input type="text" id="filter-title"></label>
+		<label>Статус: <select name="status" id="filter-status">
+			<option value="open">Открыт</option>
+			<option value="done">Закрыт</option>
+		</select></label>
+		<label>Срочность: <select name="priority" id="filter-priority">
+			<option value="low" selected>Низкая</option>
+			<option value="normal">Средняя</option>
+			<option value="high">Высокая</option>
+		</select></label>
+	</form>
 
 <!--	поле для карток-->
 	<div class="cards-caban">
@@ -28,7 +38,7 @@
 
 </main>
 
-<footer class="footer container">Copyright 2019</footer>
+<footer class="footer container"><p>AJAX Clinics | Copyright 2019</p></footer>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -36,6 +46,7 @@
 <script src="js/modal.js"></script>
 <script src="js/form.js"></script>
 <script src="js/card.js"></script>
+<script src="js/filters.js"></script>
 
 
 
