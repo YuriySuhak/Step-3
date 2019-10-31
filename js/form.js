@@ -67,12 +67,14 @@ class Form {
         statusSelect.value = this.status;
         statusSelect.name = "status";
         const statusOpen = document.createElement("option");
+        statusOpen.value = "open";
         statusOpen.innerText = "Открыт";
         const statusDone = document.createElement("option");
+        statusDone.value = "done";
         statusDone.innerText = "Закрыт";
         statusSelect.append(statusOpen, statusDone);
         const statusSelectLabel = document.createElement("label");
-        statusSelectLabel.innerText = "Срочность: ";
+        statusSelectLabel.innerText = "Статус: ";
         statusSelectLabel.append(statusSelect);
 
         const summaryInputLabel = document.createElement("label");
@@ -94,10 +96,35 @@ class Form {
             priority: visit.urgency,
             content: visit.content
         };
-        cards.push(object);
-        console.log(object);
-        console.log(cards);
-        $("#new-card").parent().remove();
+        const request = {
+            doctor: visit.doctor,
+            title: visit.goal,
+            description: visit.summary,
+            status: visit.status,
+            priority: visit.urgency,
+            content: visit.content
+        };
+
+        const dat = JSON.stringify(request);
+
+        console.log(request);
+        console.log(authConfig);
+
+        axios.post("http://cards.danit.com.ua/cards", dat, authConfig).then(function (response) {
+                if (response.status === 200) {
+                    console.log(response.data.id);
+                    object.id = response.data.id;
+                    cards.push(object);
+                    console.log(object);
+                    console.log(cards);
+                    $("#new-card").parent().remove();
+                } else {
+                    alert(`${response.status}: ${response.statusText}`);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 }
 
@@ -246,6 +273,7 @@ function modalNewVisit() {
         e.preventDefault();
         const data = ($(this).serializeArray());
         console.log(data);
+        console.log(authToken);
         switch (selectedDoctor.value) {
             case "cardiologist":
                 const visitCardiologist = new FormCardiologist(data[6].value, data[8].value, data[7].value, data[9].value, data[1].value, data[0].value, data[2].value, data[4].value, data[3].value, data[5].value, data[10].value)
