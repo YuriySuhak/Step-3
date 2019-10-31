@@ -1,4 +1,3 @@
-// let authToken;
 initialize();
 
 function initialize() {
