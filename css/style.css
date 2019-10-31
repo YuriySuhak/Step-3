@@ -115,3 +115,26 @@
     width: fit-content;
 }
 
+/*поле карток*/
+.cards-caban {
+    display: flex;
+    flex-wrap: wrap;
+}
+.cards-caban div {
+    margin: 10px;
+    background-color: lightcoral;
+    /*padding: 10px;*/
+}
+.cards-caban p {
+    font-size: 16px;
+    text-transform: capitalize;
+    margin: 10px;
+}
+.cards-caban span {
+    font-size: 16px;
+    text-transform: capitalize;
+    margin: 10px;
+}
+.cards-caban button {
+    margin: 10px auto;
+}
