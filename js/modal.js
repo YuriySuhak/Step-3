@@ -100,8 +100,9 @@ class Modal {
                         }
                     };
                     modal.remove();
-                    loginBtn.classList.replace('disp-block', "disp-none");
-                    createCard.classList.replace('disp-none', "disp-block");
+                    document.getElementById('loginBtn').classList.replace('disp-block', "disp-none");
+                    document.getElementById('createCardBtn').classList.replace('disp-none', "disp-block");
+                    getAllCards();
                 } else {
                     alert(`${response.data.status}: ${response.data.text}`);
                 }
@@ -152,4 +153,18 @@ class Modal {
         modalNewVisit();
         modalForm.append(createNewCardBtn);
     }
+}
+
+function getAllCards() {
+    axios.get("http://cards.danit.com.ua/cards", authConfig).then(function (response) {
+        if (response.status === 200) {
+            cards = response.data;
+            console.log(cards);
+        } else {
+            alert(`${response.status}: ${response.statusText}`);
+        }
+    })
+        .catch(function (error) {
+            console.log(error);
+        });
 }

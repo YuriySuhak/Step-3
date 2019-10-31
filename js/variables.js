@@ -1,7 +1,6 @@
 let authToken;
-
 let authConfig = {};
-const cards = [
+let cards = [
     // {content: {name: "Тарнавська", lastVisitDate: "01.01.2019", doctorName: "Иванов А.И."},
     //     description: "боли",
     //     doctor: "dentist",
