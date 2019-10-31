@@ -6,7 +6,7 @@
 
 .header {
     height: 70px;
-    background-color: #069A06;
+    background-color: #19a566;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,16 +21,24 @@
 }
 
 .main {
-    min-height: 500px;
+    padding: 10px 30px;
+    min-height: 520px;
+    font-family: sans-serif;
+    background-color: #ebe4d2;
 }
 
 .footer {
-    height: 70px;
-    background-color: #069A06;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: sans-serif;
+    height: 70px;
     padding: 10px 30px;
+    background-color: #19a566;
+
+}
+.footer p {
+    color: #E1F433;
 }
 
 .modal {
@@ -117,5 +125,15 @@
 
 #modal-form .form-button, #new-card #create-new-card-btn, #edit-card #edit-card-btn {
     width: fit-content;
+}
+
+#filter-cards {
+    font-size: 14px;
+    text-align: center;
+    margin: 5px auto 10px;
+}
+
+#filter-cards label {
+    margin: 0 10px;
 }
 
