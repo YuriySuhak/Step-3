@@ -10,7 +10,7 @@ filterForm.addEventListener('submit', (event) => {
         }
     })
         .catch(function (error) {
-        .log(error);
+            console.log(error);
         });
 });
 
@@ -25,5 +25,5 @@ function filter() {
             item.status === statusFilter &&
             item.priority === priorityFilter);
     });
-    visitCard.prototype.creatCard();
+    creatCards();
 }
