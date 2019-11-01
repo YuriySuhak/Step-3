@@ -22,11 +22,29 @@ class visitCard {
 
     createElemBtns(elemCard, i) {
         const editBtn = document.createElement('button');
-        editBtn.innerText = 'edit visit';
+        editBtn.innerText = 'Edit visit';
         editBtn.dataset.i = i;
         editBtn.dataset.edit = "edit";
         editBtn.dataset.doctor = this.doctor;
         elemCard.appendChild(editBtn);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.innerText = 'Delete visit';
+        deleteBtn.dataset.i = i;
+        deleteBtn.dataset.delete = "delete";
+        deleteBtn.dataset.doctor = this.doctor;
+        elemCard.appendChild(deleteBtn);
+
+        if (this.status === "open") {
+            const doneBtn = document.createElement('button');
+            doneBtn.innerText = 'Complete';
+            doneBtn.dataset.i = i;
+            doneBtn.dataset.complete = "complete";
+            doneBtn.dataset.doctor = this.doctor;
+            elemCard.appendChild(doneBtn);
+        }
+
+
     }
 
     creatElemCard(i) {
@@ -48,7 +66,7 @@ class visitCard {
         const elemDoctorName = document.createElement('span');
         elemDoctorName.innerText = this.doctorName;
         const elemMore = document.createElement('button');
-        elemMore.innerText = 'show more data';
+        elemMore.innerText = 'Show more data';
         elemMore.classList.add('btn-more');
         elemMore.dataset.doctor = this.doctor;
 
@@ -135,6 +153,8 @@ visitCard.prototype.firstCreat();
 cardsCaban.addEventListener('click', (e) => {
     let parentCard = e.path[1];
     let currentVisit = e.path[1].dataset.position;
+    let currentID = e.path[1].id;
+    console.log(currentID);
     console.log(filtred.length);
     let card;
     if (filtred.length) {
@@ -155,30 +175,79 @@ cardsCaban.addEventListener('click', (e) => {
         addCardData.creatAddField(parentCard, currentVisit);
     }
     if (e.target.dataset.edit) {
-        let i = e.path[1].dataset.position;
+        // let i = e.path[1].dataset.position;
         new Modal('edit').render();
-
-        const editForm = document.getElementById("edit-card");
-        const currentDoctor = document.createElement('p');
-        currentDoctor.innerText = `visit to ${e.target.dataset.doctor}`;
-        editForm.parentElement.firstChild.appendChild(currentDoctor);
-
-        switch (e.target.dataset.doctor) {
-            case "cardiologist":
-                new FormCardiologist(cards[i]).createInputs(optionalInputs);
-                editCardObject(cards[i], i);
-                break;
-            case "dentist":
-                new FormDentist(cards[i]).createInputs(optionalInputs);
-                editCardObject(cards[i], i);
-                break;
-            case "therapist":
-                new FormTherapist(cards[i]).createInputs(optionalInputs);
-                editCardObject(cards[i], i);
-                break;
-        }
+        let i = cards.findIndex(x => x.id === currentID);
+        console.log(i);
+        editModal(card, i, e.target.dataset.doctor)
+    }
+    if (e.target.dataset.complete) {
+        let i = cards.findIndex(x => x.id === currentID);
+        console.log(i);
+        card.status = 'done';
+        delete card.id;
+        completeVisit(currentID, card, i);
+    }
+    if (e.target.dataset.delete) {
+        let i = cards.findIndex(x => x.id === currentID);
+        deleteThisVisit(currentID, i);
     }
 });
+
+function deleteThisVisit(id, index) {
+    axios.delete(`http://cards.danit.com.ua/cards/${id}`, authConfig).then(function (response) {
+        if (response.status === 200) {
+            console.log(response.data);
+            cards.splice(index, 1);
+            filtred = {};
+            creatCards(cards);
+        } else {
+            alert(`${response.status}: ${response.statusText}`);
+        }
+    })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+function editModal(card, i, doctor) {
+
+    const editForm = document.getElementById("edit-card");
+    const currentDoctor = document.createElement('p');
+    currentDoctor.innerText = `visit to ${doctor}`;
+    editForm.parentElement.firstChild.appendChild(currentDoctor);
+
+    switch (doctor) {
+        case "cardiologist":
+            new FormCardiologist(card).createInputs(optionalInputs);
+            editCardObject(card, i);
+            break;
+        case "dentist":
+            new FormDentist(card).createInputs(optionalInputs);
+            editCardObject(card, i);
+            break;
+        case "therapist":
+            new FormTherapist(card).createInputs(optionalInputs);
+            editCardObject(card, i);
+            break;
+    }
+}
+
+function completeVisit(cardId, data, index) {
+    axios.put(`http://cards.danit.com.ua/cards/${cardId}`, data, authConfig).then(function (response) {
+        if (response.status === 200) {
+            console.log(response.data);
+            cards[index] = response.data;
+            filtred = {};
+            creatCards(cards);
+        } else {
+            alert(`${response.status}: ${response.statusText}`);
+        }
+    })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
 
 function creatCards(cards) {
     if (cards.length > 0) {
