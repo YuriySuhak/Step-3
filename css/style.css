@@ -146,7 +146,7 @@
 }
 .cards-caban div {
     margin: 10px;
-    background-color: lightcoral;
+    /*background-color: lightcoral;*/
     /*padding: 10px;*/
 }
 .cards-caban p {
@@ -161,4 +161,10 @@
 }
 .cards-caban button {
     margin: 10px auto;
+}
+.status-open {
+    background-color: lightseagreen;
+}
+.status-done {
+    background-color: lightslategrey;
 }
