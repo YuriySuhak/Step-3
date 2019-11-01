@@ -71,8 +71,8 @@ creatCard () {
 }
 
 class cardDantist extends visitCard {
-    constructor(card, ...args) {
-        super(...args);
+    constructor(card) {
+        super(card);
         this.lastVisit = card.content.lastVisitDate;
     }
 creatAddField(target, i) {
@@ -94,8 +94,8 @@ creatAddField(target, i) {
 }
 }
 class cardCardiologist extends visitCard {
-    constructor (card, ...args) {
-        super(...args);
+    constructor (card,) {
+        super(card);
         this.pressure = card.content.pressure;
         this.weightIndex = card.content.weightIndex;
         this.age = card.content.age;
@@ -122,10 +122,9 @@ class cardCardiologist extends visitCard {
         target.appendChild(editBtn);
     }
 }
-
 class cardTherapist extends visitCard {
-    constructor (card, ...args) {
-        super(...args);
+    constructor (card,) {
+        super(card);
         this.age = card.content.age;
         console.log(this.age);
         console.log(this.name);
@@ -149,24 +148,7 @@ class cardTherapist extends visitCard {
     }
 }
 
-class setValue {
-    setValueCardio(i) {
-        setValue.prototype.setValueForAll(i);
-    }
-    setValueDentist(i) {
-        setValue.prototype.setValueForAll(i);
-    }
-    setValueTherapist(i) {
-        setValue.prototype.setValueForAll(i);
-    }
-    setValueForAll(i) {
-
-        clientName.value = cards[i].content.name;
-    }
-}
-
 visitCard.prototype.firstCreat();
-
 document.body.addEventListener('submit', () => {
     creatCards ();
 });
@@ -178,7 +160,7 @@ cardsCaban.addEventListener('click', (e) => {
        let currentVisit = e.path[1].dataset.position;
        console.log(currentVisit);
        let card = cards[currentVisit];
-       let addCardData = new cardDantist(card, card);
+       let addCardData = new cardDantist(card);
        addCardData.creatAddField(parentCard, currentVisit);
        // cardDantist.prototype.creatAddField(parentCard, currentVisit);
    }
@@ -187,7 +169,7 @@ cardsCaban.addEventListener('click', (e) => {
         let parentCard = e.path[1];
         let currentVisit = e.path[1].dataset.position;
         let card = cards[currentVisit];
-        let addCardData = new cardCardiologist(card, card);
+        let addCardData = new cardCardiologist(card);
         addCardData.creatAddField(parentCard, currentVisit);
         // cardCardiologist.prototype.creatAddField(parentCard, currentVisit);
     }
@@ -196,7 +178,7 @@ cardsCaban.addEventListener('click', (e) => {
         let parentCard = e.path[1];
         let currentVisit = e.path[1].dataset.position;
         let card = cards[currentVisit];
-        let addCardData = new cardTherapist(card, card);
+        let addCardData = new cardTherapist(card);
         addCardData.creatAddField(parentCard, currentVisit);
         // cardTherapist.prototype.creatAddField(parentCard, currentVisit);
     }
@@ -205,14 +187,8 @@ cardsCaban.addEventListener('click', (e) => {
         let i = e.path[1].dataset.position;
         console.log(i);
         new Modal('edit').render();
-        // let autoevent = new Event ('change');
-        // const selected = e.target.dataset.doctor;
-        // const selectedDoctor = document.getElementById("selectDoctor");
-        // selectedDoctor.value = selected;
-        // selectedDoctor.dispatchEvent(autoevent);
-        // ----
-        const editForm = document.getElementById("edit-card");
 
+        const editForm = document.getElementById("edit-card");
         const currentDoctor = document.createElement('p');
         currentDoctor.innerText = `visit to ${e.target.dataset.doctor}`;
         editForm.parentElement.firstChild.appendChild(currentDoctor);
@@ -241,9 +217,7 @@ function creatCards () {
         for (let i = 0; i < cards.length; i++) {
             const card = cards[i];
             const genCard = new visitCard(card);
-            // console.log(genCard);
             genCard.creatElemCard(i);
-            // visitCard.prototype.creatElemCard(card);
         }
     }
 }
