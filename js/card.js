@@ -219,20 +219,21 @@ cardsCaban.addEventListener('click', (e) => {
 
         switch (e.target.dataset.doctor){
             case "cardiologist":
-                new FormCardiologist().createInputs(optionalInputs);
-                setValue.prototype.setValueCardio(i);
+                new FormCardiologist(cards[i]).createInputs(optionalInputs);
+                editCardObject(cards[i], i);
                 break;
             case "dentist":
-                new FormDentist().createInputs(optionalInputs);
-                setValue.prototype.setValueDentist(i);
+                new FormDentist(cards[i]).createInputs(optionalInputs);
+                editCardObject (cards[i], i);
                 break;
             case "therapist":
-                new FormTherapist().createInputs(optionalInputs);
-                setValue.prototype.setValueTherapist(i);
+                new FormTherapist(cards[i]).createInputs(optionalInputs);
+                editCardObject (cards[i], i);
                 break;
         }
     }
 });
+
 
 function creatCards () {
     if(cards.length > 0) {
