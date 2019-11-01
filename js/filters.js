@@ -19,11 +19,11 @@ function filter() {
     const statusFilter = document.getElementById('filter-status').value;
     const priorityFilter = document.getElementById('filter-priority').value;
 
-    cards = cards.filter((item) => {
+    filtred = cards.filter((item) => {
         return ((item.title.toLowerCase().includes(targetFilter)
             || item.description.toLowerCase().includes(targetFilter)) &&
             item.status === statusFilter &&
             item.priority === priorityFilter);
     });
-    creatCards();
+    creatCards(filtred);
 }

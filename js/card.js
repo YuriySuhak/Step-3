@@ -126,8 +126,6 @@ class cardTherapist extends visitCard {
     constructor (card,) {
         super(card);
         this.age = card.content.age;
-        console.log(this.age);
-        console.log(this.name);
     }
     creatAddField(target, i) {
         target.innerHTML = `<p>doctor:<span>${this.doctor}</span></p>
@@ -149,9 +147,10 @@ class cardTherapist extends visitCard {
 }
 
 visitCard.prototype.firstCreat();
-document.body.addEventListener('submit', () => {
-    creatCards ();
-});
+
+// document.body.addEventListener('submit', () => {
+//     creatCards (cards);
+// });
 
 cardsCaban.addEventListener('click', (e) => {
    if (e.target.dataset.doctor == "dentist") {
@@ -162,7 +161,6 @@ cardsCaban.addEventListener('click', (e) => {
        let card = cards[currentVisit];
        let addCardData = new cardDantist(card);
        addCardData.creatAddField(parentCard, currentVisit);
-       // cardDantist.prototype.creatAddField(parentCard, currentVisit);
    }
     if (e.target.dataset.doctor == "cardiologist") {
         console.log(e.path[1]);
@@ -171,7 +169,6 @@ cardsCaban.addEventListener('click', (e) => {
         let card = cards[currentVisit];
         let addCardData = new cardCardiologist(card);
         addCardData.creatAddField(parentCard, currentVisit);
-        // cardCardiologist.prototype.creatAddField(parentCard, currentVisit);
     }
     if (e.target.dataset.doctor == "therapist") {
         console.log(e.path[1]);
@@ -180,12 +177,9 @@ cardsCaban.addEventListener('click', (e) => {
         let card = cards[currentVisit];
         let addCardData = new cardTherapist(card);
         addCardData.creatAddField(parentCard, currentVisit);
-        // cardTherapist.prototype.creatAddField(parentCard, currentVisit);
     }
     if(e.target.dataset.edit) {
-        console.log("dddd");
         let i = e.path[1].dataset.position;
-        console.log(i);
         new Modal('edit').render();
 
         const editForm = document.getElementById("edit-card");
@@ -211,7 +205,7 @@ cardsCaban.addEventListener('click', (e) => {
 });
 
 
-function creatCards () {
+function creatCards (cards) {
     if(cards.length > 0) {
         visitCard.prototype.removeElemCard();
         for (let i = 0; i < cards.length; i++) {
