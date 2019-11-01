@@ -16,6 +16,7 @@
 .disp-block {
     display: inline-block;
 }
+
 .disp-none {
     display: none;
 }
@@ -37,6 +38,7 @@
     background-color: #19a566;
 
 }
+
 .footer p {
     color: #E1F433;
 }
@@ -61,7 +63,7 @@
     font-size: 18px;
     text-align: center;
     padding-bottom: 12px;
-	margin-bottom: 20px;
+    margin-bottom: 20px;
     border-bottom: 1px solid #cccccc;
 }
 
@@ -101,7 +103,7 @@
     transform: rotate(-45deg);
 }
 
-#modal-form, #new-card, #optionalInputs, #edit-card{
+#modal-form, #new-card, #optionalInputs, #edit-card {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -144,27 +146,30 @@
     flex-wrap: wrap;
     align-items: start;
 }
+
 .cards-caban div {
+    padding: 10px;
     margin: 10px;
-    /*background-color: lightcoral;*/
-    /*padding: 10px;*/
+    border-radius: 5px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.75);
 }
+
 .cards-caban p {
-    font-size: 16px;
+    font-size: 15px;
     text-transform: capitalize;
-    margin: 10px;
+    margin-bottom: 10px;
 }
+
 .cards-caban span {
-    font-size: 16px;
+    font-size: 15px;
     text-transform: capitalize;
     margin: 10px;
 }
-.cards-caban button {
-    margin: 10px auto;
-}
+
 .status-open {
     background-color: lightseagreen;
 }
+
 .status-done {
     background-color: lightslategrey;
 }
