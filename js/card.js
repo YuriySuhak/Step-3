@@ -160,7 +160,7 @@ cardsCaban.addEventListener('click', (e) => {
        let currentVisit = e.path[1].dataset.position;
        console.log(currentVisit);
        let card = cards[currentVisit];
-       let addCardData = new cardDantist(card, card);
+       let addCardData = new cardDantist(card);
        addCardData.creatAddField(parentCard, currentVisit);
        // cardDantist.prototype.creatAddField(parentCard, currentVisit);
    }
@@ -169,7 +169,7 @@ cardsCaban.addEventListener('click', (e) => {
         let parentCard = e.path[1];
         let currentVisit = e.path[1].dataset.position;
         let card = cards[currentVisit];
-        let addCardData = new cardCardiologist(card, card);
+        let addCardData = new cardCardiologist(card);
         addCardData.creatAddField(parentCard, currentVisit);
         // cardCardiologist.prototype.creatAddField(parentCard, currentVisit);
     }
@@ -178,7 +178,7 @@ cardsCaban.addEventListener('click', (e) => {
         let parentCard = e.path[1];
         let currentVisit = e.path[1].dataset.position;
         let card = cards[currentVisit];
-        let addCardData = new cardTherapist(card, card);
+        let addCardData = new cardTherapist(card);
         addCardData.creatAddField(parentCard, currentVisit);
         // cardTherapist.prototype.creatAddField(parentCard, currentVisit);
     }
