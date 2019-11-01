@@ -133,15 +133,17 @@
     margin: 5px auto 10px;
 }
 
-#filter-cards label {
+#filter-cards label, #filter-submit{
     margin: 0 10px;
 }
+
 
 
 /*поле карток*/
 .cards-caban {
     display: flex;
     flex-wrap: wrap;
+    align-items: start;
 }
 .cards-caban div {
     margin: 10px;
@@ -149,7 +151,7 @@
     /*padding: 10px;*/
 }
 .cards-caban p {
-    font-size: 16px;
+    font-size: 14px;
     text-transform: capitalize;
     margin: 10px;
 }

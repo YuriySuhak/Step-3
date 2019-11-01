@@ -1,24 +1,25 @@
-
 const cardsCaban = document.querySelector(".cards-caban");
 
 class visitCard {
-    constructor () {
+    constructor() {
         this.elemBtnShow = document.createElement('button');
         elemMore.innerText = 'show more';
-}
+    }
 
-firstCreat() {
-    console.log(cardsCaban);
-    cardsCaban.innerHTML = '<p>No items have been added</p>';
-}
-removeElemCard () {
-    cardsCaban.innerHTML = "";
-}
-creatElemCard (client, doctorName, cardId, doctor, i) {
+    firstCreat() {
+        console.log(cardsCaban);
+        cardsCaban.innerHTML = '<p>No items have been added</p>';
+    }
+
+    removeElemCard() {
+        cardsCaban.innerHTML = "";
+    }
+
+    creatElemCard(client, doctorName, cardId, doctor, i) {
         const elemCard = document.createElement('div');
         elemCard.dataset.position = i;
 
-    const elemClient = document.createElement('p');
+        const elemClient = document.createElement('p');
         elemClient.innerText = 'Name: ';
         const elemClientName = document.createElement('span');
         elemClientName.innerText = client;
@@ -35,17 +36,18 @@ creatElemCard (client, doctorName, cardId, doctor, i) {
         editBtn.dataset.i = i;
         editBtn.dataset.edit = "edit";
         editBtn.dataset.doctor = doctor;
-    cardsCaban.appendChild(elemCard);
-    elemCard.appendChild(elemClient);
-    elemClient.appendChild(elemClientName);
-    elemCard.appendChild(elemDoctor);
-    elemDoctor.appendChild(elemDoctorName);
-    elemCard.appendChild(elemMore);
-    elemCard.appendChild(editBtn);
-    elemCard.id = cardId;
-}
-creatCard () {
-        if(cards.length > 0) {
+        cardsCaban.appendChild(elemCard);
+        elemCard.appendChild(elemClient);
+        elemClient.appendChild(elemClientName);
+        elemCard.appendChild(elemDoctor);
+        elemDoctor.appendChild(elemDoctorName);
+        elemCard.appendChild(elemMore);
+        elemCard.appendChild(editBtn);
+        elemCard.id = cardId;
+    }
+
+    creatCard() {
+        if (cards.length > 0) {
             visitCard.prototype.removeElemCard();
 
             let doctorName = '';
@@ -58,24 +60,24 @@ creatCard () {
                 doctor = cards[i].doctor;
                 cardId = cards[i].id;
                 visitCard.prototype.creatElemCard(client, doctorName, cardId, doctor, i);
+            }
         }
-        }
-}
+    }
 }
 
 class cardDantist {
-creatAddField(target, i) {
-    let title = cards[i].title;
-    let description = cards[i].description;
-    let priority = cards[i].priority;
-    let status = cards[i].status;
-    let doctor = cards[i].doctor;
-    let id = cards[i].id;
-    let doctorName = cards[i].content.doctorName;
-    // ----
-    let lastVisitDate = cards[i].content.lastVisitDate;
-    let name = cards[i].content.name;
-    target.innerHTML = `<p>doctor:<span>${doctor}</span></p>
+    creatAddField(target, i) {
+        let title = cards[i].title;
+        let description = cards[i].description;
+        let priority = cards[i].priority;
+        let status = cards[i].status;
+        let doctor = cards[i].doctor;
+        let id = cards[i].id;
+        let doctorName = cards[i].content.doctorName;
+        // ----
+        let lastVisitDate = cards[i].content.lastVisitDate;
+        let name = cards[i].content.name;
+        target.innerHTML = `<p>doctor:<span>${doctor}</span></p>
 <p>name:<span>${name}</span></p>
 <p>title:<span>${title}</span></p>
 <p>priority:<span>${priority}</span></p>
@@ -84,14 +86,15 @@ creatAddField(target, i) {
 <p>last Visit Date:<span>${lastVisitDate}</span></p>
 <p>doctor Name:<span>${doctorName}</span></p>
 `;
-    const editBtn = document.createElement('button');
-    editBtn.innerText = 'edit visit';
-    editBtn.dataset.i = i;
-    editBtn.dataset.edit = "edit";
-    editBtn.dataset.doctor = doctor;
-    target.appendChild(editBtn);
+        const editBtn = document.createElement('button');
+        editBtn.innerText = 'edit visit';
+        editBtn.dataset.i = i;
+        editBtn.dataset.edit = "edit";
+        editBtn.dataset.doctor = doctor;
+        target.appendChild(editBtn);
+    }
 }
-}
+
 class cardCardiologist {
     creatAddField(target, i) {
         let title = cards[i].title;
@@ -160,12 +163,15 @@ class setValue {
     setValueCardio(i) {
         setValue.prototype.setValueForAll(i);
     }
+
     setValueDentist(i) {
         setValue.prototype.setValueForAll(i);
     }
+
     setValueTherapist(i) {
         setValue.prototype.setValueForAll(i);
     }
+
     setValueForAll(i) {
 
         clientName.value = cards[i].content.name;
@@ -178,13 +184,13 @@ document.body.addEventListener('submit', () => {
     visitCard.prototype.creatCard();
 });
 cardsCaban.addEventListener('click', (e) => {
-   if (e.target.dataset.doctor == "dentist") {
-       console.log(e.path[1]);
-       let parentCard = e.path[1];
-       let currentVisit = e.path[1].dataset.position;
-       console.log(currentVisit);
-       cardDantist.prototype.creatAddField(parentCard, currentVisit);
-   }
+    if (e.target.dataset.doctor == "dentist") {
+        console.log(e.path[1]);
+        let parentCard = e.path[1];
+        let currentVisit = e.path[1].dataset.position;
+        console.log(currentVisit);
+        cardDantist.prototype.creatAddField(parentCard, currentVisit);
+    }
     if (e.target.dataset.doctor == "cardiologist") {
         console.log(e.path[1]);
         let parentCard = e.path[1];
@@ -197,7 +203,7 @@ cardsCaban.addEventListener('click', (e) => {
         let currentVisit = e.path[1].dataset.position;
         cardTherapist.prototype.creatAddField(parentCard, currentVisit);
     }
-    if(e.target.dataset.edit) {
+    if (e.target.dataset.edit) {
         console.log("dddd");
         let i = e.path[1].dataset.position;
         console.log(i);
@@ -212,7 +218,7 @@ cardsCaban.addEventListener('click', (e) => {
         const currentDoctor = document.createElement('p');
         currentDoctor.innerText = `visit to ${e.target.dataset.doctor}`;
         editForm.parentElement.firstChild.appendChild(currentDoctor);
-        switch (e.target.dataset.doctor){
+        switch (e.target.dataset.doctor) {
             case "cardiologist":
                 new FormCardiologist().createInputs(optionalInputs);
                 setValue.prototype.setValueCardio(i);

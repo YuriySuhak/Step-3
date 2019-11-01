@@ -172,7 +172,6 @@ class Modal {
         editCardBtn.value = 'Edit';
         editCardBtn.classList.add('edit-card-btn');
 
-
         // editCard();
         this.modalForm.append(editCardBtn);
     }
@@ -192,3 +191,17 @@ function getAllCards() {
             console.log(error);
         });
 }
+// function getAllCards() {
+//     axios.get("http://cards.danit.com.ua/cards", authConfig).then(function (response) {
+//         if (response.status === 200) {
+//             cards = response.data;
+//             visitCard.prototype.creatCard();
+//             console.log(cards);
+//         } else {
+//             alert(`${response.status}: ${response.statusText}`);
+//         }
+//     })
+//         .catch(function (error) {
+//             console.log(error);
+//         });
+// }
