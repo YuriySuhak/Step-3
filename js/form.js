@@ -155,7 +155,7 @@ class Form {
                 console.log(response.data);
                 cards[index] = response.data;
                 $("#edit-card").parent().remove();
-                creatCards();
+                creatCards(cards);
             } else {
                 alert(`${response.status}: ${response.statusText}`);
             }
