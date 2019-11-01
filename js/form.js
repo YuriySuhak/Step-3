@@ -434,4 +434,3 @@ function editCardObject (objectToEdit){
     })
 }
 
-
