@@ -18,15 +18,16 @@ class requiredInput extends Input{
 }
 
 class Form {
-    constructor(client = null, doctor = null, goal = null, status = null, urgency = null, summary = null, doctorName = null, id = null) {
-        this.id = id;
-        this.client = client;
-        this.goal = goal;
-        this.status = status;
-        this.urgency = urgency;
-        this.doctor = doctor;
-        this.doctorName = doctorName;
-        this.summary = summary;
+    constructor(cardObject = {content: {}}) {
+        this.id = cardObject.id || "";
+        this.client = cardObject.content.name || "";
+        this.goal = cardObject.title || "";
+        this.status = cardObject.status || "";
+        this.urgency = cardObject.priority || "";
+        this.doctor = cardObject.doctor || "";
+        this.doctorName = cardObject.content.doctorName || "";
+        this.summary = cardObject.description || "";
+        this.content = cardObject.content;
     }
     createInputs(form) {
         form.innerHTML = "";
@@ -36,42 +37,56 @@ class Form {
 
         const nameInput = new requiredInput( "true", "input", "name", "clientName","ФИО");
         nameInput.createInput(nameInputLabel);
-        nameInput.value = this.client;
-        // nameInput.classList.add("new-visit-input");
+        nameInput.el.value = this.client;
 
         const goalInputLabel = document.createElement("label");
         goalInputLabel.innerText = "Цель визита: ";
 
         const goalInput = new requiredInput("true","input", "goal", "goalId", "Обследование");
         goalInput.createInput(goalInputLabel);
-        goalInput.value = this.goal;
+        goalInput.el.value = this.goal;
 
         const urgencySelect = document.createElement("select");
-        urgencySelect.value = this.urgency;
         urgencySelect.name = "urgency";
         urgencySelect.setAttribute("required", "true");
         const urgencyLevelHigh = document.createElement("option");
         urgencyLevelHigh.innerText = "Высокая";
+        if (this.urgency === "Высокая") {
+            urgencyLevelHigh.selected = true;
+        }
         const urgencyLevelMedium = document.createElement("option");
         urgencyLevelMedium.innerText = "Средняя";
+        if (this.urgency === "Средняя") {
+            urgencyLevelMedium.selected = true;
+        }
         const urgencyLevelLow = document.createElement("option");
         urgencyLevelLow.innerText = "Низкая";
+        if (this.urgency === "Низкая") {
+            urgencyLevelLow.selected = true;
+        }
+
         urgencySelect.append(urgencyLevelHigh, urgencyLevelMedium, urgencyLevelLow);
         const urgencySelectLabel = document.createElement("label");
         urgencySelectLabel.innerText = "Срочность: ";
         urgencySelectLabel.append(urgencySelect);
 
         const statusSelect = document.createElement("select");
-
         statusSelect.setAttribute("required", "true");
-        statusSelect.value = this.status;
         statusSelect.name = "status";
+
         const statusOpen = document.createElement("option");
         statusOpen.value = "open";
         statusOpen.innerText = "Открыт";
+        if (this.status === "open") {
+            statusOpen.selected = true;
+        }
         const statusDone = document.createElement("option");
         statusDone.value = "done";
         statusDone.innerText = "Закрыт";
+        if (this.status === "done") {
+            statusDone.selected = true;
+        }
+
         statusSelect.append(statusOpen, statusDone);
         const statusSelectLabel = document.createElement("label");
         statusSelectLabel.innerText = "Статус: ";
@@ -82,46 +97,69 @@ class Form {
 
         const summaryInput = new Input("textarea", "summary","summaryId", "Пациента беспокоит...");
         summaryInput.createInput(summaryInputLabel);
-        summaryInput.value = this.summary;
+        summaryInput.el.value = this.summary;
 
         form.append(nameInputLabel, goalInputLabel, urgencySelectLabel,  statusSelectLabel, summaryInputLabel);
     }
 
-    submitForm(visit){
+    submitForm(){
         const object = {
-            doctor: visit.doctor,
-            title: visit.goal,
-            description: visit.summary,
-            status: visit.status,
-            priority: visit.urgency,
-            content: visit.content
-        };
-        const request = {
-            doctor: visit.doctor,
-            title: visit.goal,
-            description: visit.summary,
-            status: visit.status,
-            priority: visit.urgency,
-            content: visit.content
+            doctor: this.doctor,
+            title: this.goal,
+            description: this.summary,
+            status: this.status,
+            priority: this.urgency,
+            content: this.content
         };
 
-        const dat = JSON.stringify(request);
+        const dat = JSON.stringify(object);
 
-        console.log(request);
+        console.log(object);
         console.log(authConfig);
 
         axios.post("http://cards.danit.com.ua/cards", dat, authConfig).then(function (response) {
-                if (response.status === 200) {
-                    console.log(response.data.id);
-                    object.id = response.data.id;
-                    cards.push(object);
-                    console.log(object);
-                    console.log(cards);
-                    $("#new-card").parent().remove();
-                } else {
-                    alert(`${response.status}: ${response.statusText}`);
-                }
-            })
+            if (response.status === 200) {
+                console.log(response.data.id);
+                object.id = response.data.id;
+                cards.push(object);
+                // console.log(object);
+                // console.log(cards);
+                $("#new-card").parent().remove();
+            } else {
+                alert(`${response.status}: ${response.statusText}`);
+            }
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    editObjectFromCards(cardId, index){
+        const object = {
+            doctor: this.doctor,
+            title: this.goal,
+            description: this.summary,
+            status: this.status,
+            priority: this.urgency,
+            content: this.content
+        };
+
+        const dat = JSON.stringify(object);
+
+        console.log(object);
+        console.log(cardId);
+        console.log(index);
+
+        axios.put(`http://cards.danit.com.ua/cards/${cardId}`, dat, authConfig).then(function (response) {
+            if (response.status === 200) {
+                console.log(response.data);
+                cards[index] = response.data;
+                $("#edit-card").parent().remove();
+                creatCards();
+            } else {
+                alert(`${response.status}: ${response.statusText}`);
+            }
+        })
             .catch(function (error) {
                 console.log(error);
             });
@@ -129,9 +167,9 @@ class Form {
 }
 
 class FormDentist extends Form {
-    constructor(lastVisitDate = "",...args){
-        super(...args);
-        this.lastVisitDate = lastVisitDate;
+    constructor(cardObject = {content: {}}){
+        super(cardObject);
+        this.lastVisitDate = cardObject.content.lastVisitDate || "";
         this.content = {name: this.client, lastVisitDate: this.lastVisitDate, doctorName: this.doctorName};
     }
     createInputs(form) {
@@ -141,17 +179,30 @@ class FormDentist extends Form {
 
         const lastVisitDateInput = new requiredInput( "true", "input", "lastVisit", "lastVisitId", "01.01.2019");
         lastVisitDateInput.createInput(lastVisitDateInputLabel);
-        lastVisitDateInput.value = this.content.lastVisitDate;
+        lastVisitDateInput.el.value = this.content.lastVisitDate;
 
         const dentists = document.createElement("select");
         dentists.name = "dentist";
         dentists.setAttribute("required", "true");
+
         const dentist1 = document.createElement("option");
         dentist1.innerText = "Иванов А.И.";
+        if (this.doctorName === "Иванов А.И.") {
+            dentist1.selected = true;
+        }
+
         const dentist2 = document.createElement("option");
         dentist2.innerText = "Петров И.И.";
+        if (this.doctorName === "Петров И.И.") {
+            dentist2.selected = true;
+        }
+
         const dentist3 = document.createElement("option");
         dentist3.innerText = "Сидоров О.О.";
+        if (this.doctorName === "Сидоров О.О.") {
+            dentist3.selected = true;
+        }
+
         dentists.append(dentist1, dentist2, dentist3);
         const dentistsLabel = document.createElement("label");
         dentistsLabel.innerText = "Лечащий врач: ";
@@ -162,12 +213,12 @@ class FormDentist extends Form {
 }
 
 class FormCardiologist extends Form {
-    constructor(pressure = "", weightIndex ="", illness = "", age = "",...args){
-        super(...args);
-        this.pressure = pressure;
-        this.weightIndex = weightIndex;
-        this.illness = illness;
-        this.age = age;
+    constructor(cardObject = {content: {}}){
+        super(cardObject);
+        this.pressure = cardObject.content.pressure || "";
+        this.weightIndex = cardObject.content.weightIndex || "";
+        this.illness = cardObject.content.illness || "";
+        this.age = cardObject.content.age || "";
         this.content = {name: this.client, pressure: this.pressure, weightIndex: this.weightIndex, illness: this.illness, age: this.age, doctorName: this.doctorName};
     }
     createInputs(form) {
@@ -177,14 +228,14 @@ class FormCardiologist extends Form {
 
         const pressureInput =  new requiredInput( "true", "input" , "pressure", "pressureId", "../..");
         pressureInput.createInput(pressureInputLabel);
-        pressureInput.value = this.pressure;
+        pressureInput.el.value = this.pressure;
 
         const illnessInputLabel = document.createElement("label");
         illnessInputLabel.innerText = "Перенесенные заболевания: ";
 
         const illnessInput = new requiredInput( "true", "input" , "illness", "illnessId", "...");
         illnessInput.createInput(illnessInputLabel);
-        illnessInput.value = this.illness;
+        illnessInput.el.value = this.illness;
 
         const  weightIndexInputLabel = document.createElement("label");
         weightIndexInputLabel.innerText = "Индекс массы тела: ";
@@ -192,7 +243,7 @@ class FormCardiologist extends Form {
         const weightIndexInput = new requiredInput( "true", "input" , "weightIndex", "weightIndexId", "25");
         weightIndexInput.type = "number";
         weightIndexInput.createInput(weightIndexInputLabel);
-        weightIndexInput.value = this.weightIndex;
+        weightIndexInput.el.value = this.weightIndex;
 
         const ageInputLabel = document.createElement("label");
         ageInputLabel.innerText = "Возраст пациента: ";
@@ -200,17 +251,30 @@ class FormCardiologist extends Form {
         const ageInput = new requiredInput( "true", "input" , "age", "clientAgeId", "50");
         ageInput.type = "number";
         ageInput.createInput(ageInputLabel);
-        ageInput.value = this.age;
+        ageInput.el.value = this.age;
 
         const cardiologists = document.createElement("select");
         cardiologists.name = "cardiologist";
         cardiologists.setAttribute("required", "true");
+
         const cardiologist1 = document.createElement("option");
         cardiologist1.innerText = "Иваненко И.И.";
+        if (this.doctorName === "Иваненко И.И.") {
+            cardiologist1.selected = true;
+        }
+
         const cardiologist2 = document.createElement("option");
         cardiologist2.innerText = "Петренко А.И.";
+        if (this.doctorName === "Петренко А.И.") {
+            cardiologist2.selected = true;
+        }
+
         const cardiologist3 = document.createElement("option");
         cardiologist3.innerText = "Сидоренко Р.О.";
+        if (this.doctorName === "Сидоренко Р.О.") {
+            cardiologist3.selected = true;
+        }
+
         cardiologists.append(cardiologist1, cardiologist2, cardiologist3);
         const cardiologistsLabel = document.createElement("label");
         cardiologistsLabel.innerText = "Лечащий врач: ";
@@ -221,9 +285,9 @@ class FormCardiologist extends Form {
 }
 
 class FormTherapist extends Form {
-    constructor(age,...args){
-        super(...args);
-        this.age = age;
+    constructor(cardObject = {content: {}}){
+        super(cardObject);
+        this.age = cardObject.content.age || "";
         this.content = {name: this.client, age: this.age, doctorName: this.doctorName};
     }
     createInputs(form) {
@@ -234,15 +298,24 @@ class FormTherapist extends Form {
         const ageInput = new requiredInput( "true", "input" , "age", "ageId", "30");
         ageInput.type = "number";
         ageInput.createInput(ageInputLabel);
-        ageInput.value = this.age;
+        ageInput.el.value = this.age;
 
         const therapists = document.createElement("select");
         therapists.name = "therapist";
         therapists.setAttribute("required", "true");
+
         const therapist1 = document.createElement("option");
         therapist1.innerText = "Иванющенко В.И.";
+        if (this.doctorName === "Иванющенко В.И.") {
+            therapist1.selected = true;
+        }
+
         const therapist2 = document.createElement("option");
         therapist2.innerText = "Мурило С.И.";
+        if (this.doctorName ===  "Мурило С.И.") {
+            therapist2.selected = true;
+        }
+
         therapists.append(therapist1 ,therapist2);
         const  therapistsLabel = document.createElement("label");
         therapistsLabel.innerText = "Лечащий врач: ";
@@ -272,23 +345,88 @@ function modalNewVisit() {
     $("#new-card").on("submit", function(e){
         e.preventDefault();
         const data = ($(this).serializeArray());
-        console.log(data);
-        console.log(authToken);
+        // console.log(data);
+        // console.log(authToken);
+        const object = {
+            doctor: data[0].value,
+            title: data[2].value,
+            description: data[5].value,
+            status: data[4].value,
+            priority: data[3].value,
+        };
         switch (selectedDoctor.value) {
             case "cardiologist":
-                const visitCardiologist = new FormCardiologist(data[6].value, data[8].value, data[7].value, data[9].value, data[1].value, data[0].value, data[2].value, data[4].value, data[3].value, data[5].value, data[10].value)
-                console.log(visitCardiologist);
-                new FormCardiologist().submitForm(visitCardiologist);
+                object.content = {
+                    name: data[1].value,
+                    pressure: data[6].value,
+                    weightIndex: data[8].value,
+                    illness: data[7].value,
+                    age: data[9].value,
+                    doctorName: data[10].value,
+                };
+                new FormCardiologist(object).submitForm();
                 break;
             case "dentist":
-                const visitDentist = new FormDentist(data[6].value, data[1].value, data[0].value, data[2].value, data[4].value, data[3].value, data[5].value, data[7].value,)
-                console.log(visitDentist);
-                new FormDentist().submitForm(visitDentist);
+                object.content = {
+                    name: data[1].value,
+                    lastVisitDate: data[6].value,
+                    doctorName: data[7].value,
+                };
+                new FormDentist(object).submitForm();
                 break;
             case "therapist":
-                const visitTherapist = new FormTherapist(data[6].value, data[1].value, data[0].value, data[2].value, data[4].value, data[3].value, data[5].value, data[7].value,)
-                console.log(visitTherapist);
-                new FormTherapist().submitForm(visitTherapist);
+                object.content = {
+                    name: data[1].value,
+                    age: data[6].value,
+                    doctorName: data[7].value,
+                };
+                new FormTherapist(object).submitForm();
+                break;
+        }
+    })
+}
+
+function editCardObject (objectToEdit, index){
+    $("#edit-card").on("submit", function(e){
+        e.preventDefault();
+        const data = ($(this).serializeArray());
+        const object = {
+            doctor: objectToEdit.doctor,
+            title: data[1].value,
+            description: data[4].value,
+            status: data[3].value,
+            priority: data[2].value,
+        };
+        switch (objectToEdit.doctor) {
+            case "cardiologist":
+                object.content = {
+                name: data[0].value,
+                pressure: data[5].value,
+                weightIndex: data[7].value,
+                illness: data[6].value,
+                age: data[8].value,
+                doctorName: data[9].value,
+            };
+                console.log(objectToEdit.id);
+                new FormCardiologist(object).editObjectFromCards(objectToEdit.id, index);
+                break;
+            case "dentist":
+                object.content = {
+                    name: data[0].value,
+                    lastVisitDate: data[5].value,
+                    doctorName: data[6].value,
+                };
+                console.log(objectToEdit.id);
+                new FormDentist(object).editObjectFromCards(objectToEdit.id, index);
+                break;
+            case "therapist":
+                object.content = {
+                    name: data[0].value,
+                    age: data[5].value,
+                    doctorName: data[6].value,
+                };
+                console.log(objectToEdit.id);
+                new FormTherapist(object).editObjectFromCards(objectToEdit.id, index);
                 break;
         }
     })
