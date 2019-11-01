@@ -21,11 +21,13 @@
 	<form id="filter-cards">
 		<label>Цель визита: <input type="text" id="filter-title"></label>
 		<label>Статус: <select name="status" id="filter-status">
+			<option value="all" selected>Все</option>
 			<option value="open">Открыт</option>
 			<option value="done">Закрыт</option>
 		</select></label>
 		<label>Срочность: <select name="priority" id="filter-priority">
-			<option value="Низкая" selected>Низкая</option>
+			<option value="all" selected>Все</option>
+			<option value="Низкая">Низкая</option>
 			<option value="Средняя">Средняя</option>
 			<option value="Высокая">Высокая</option>
 		</select></label>

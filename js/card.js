@@ -22,6 +22,12 @@ removeElemCard () {
 creatElemCard (i) {
         const elemCard = document.createElement('div');
         elemCard.dataset.position = i;
+        if (this.status == 'open') {
+            elemCard.classList = 'status-open';
+        }
+        else {
+            elemCard.classList = 'status-done';
+        }
 
     const elemClient = document.createElement('p');
         elemClient.innerText = 'Name: ';
@@ -50,24 +56,7 @@ creatElemCard (i) {
     elemCard.appendChild(editBtn);
     elemCard.id = this.id;
 }
-creatCard () {
-        if(cards.length > 0) {
-            visitCard.prototype.removeElemCard();
 
-            let doctorName = '';
-            let client = '';
-            let cardId = '';
-            let doctor = '';
-            for (let i = 0; i < cards.length; i++) {
-                client = cards[i].content.name;
-                doctorName = cards[i].content.doctorName;
-                doctor = cards[i].doctor;
-                cardId = cards[i].id;
-                const card = cards[i];
-                visitCard.prototype.creatElemCard(card);
-        }
-        }
-}
 }
 
 class cardDantist extends visitCard {
@@ -148,33 +137,26 @@ class cardTherapist extends visitCard {
 
 visitCard.prototype.firstCreat();
 
-// document.body.addEventListener('submit', () => {
-//     creatCards (cards);
-// });
-
 cardsCaban.addEventListener('click', (e) => {
+    let parentCard = e.path[1];
+    let currentVisit = e.path[1].dataset.position;
+    console.log(filtred.length);
+    let card;
+    if(filtred.length) {
+        card = filtred[currentVisit];
+    }
+    else {
+        card = cards[currentVisit];
+    }
    if (e.target.dataset.doctor == "dentist") {
-       console.log(e.path[1]);
-       let parentCard = e.path[1];
-       let currentVisit = e.path[1].dataset.position;
-       console.log(currentVisit);
-       let card = cards[currentVisit];
        let addCardData = new cardDantist(card);
        addCardData.creatAddField(parentCard, currentVisit);
    }
     if (e.target.dataset.doctor == "cardiologist") {
-        console.log(e.path[1]);
-        let parentCard = e.path[1];
-        let currentVisit = e.path[1].dataset.position;
-        let card = cards[currentVisit];
         let addCardData = new cardCardiologist(card);
         addCardData.creatAddField(parentCard, currentVisit);
     }
     if (e.target.dataset.doctor == "therapist") {
-        console.log(e.path[1]);
-        let parentCard = e.path[1];
-        let currentVisit = e.path[1].dataset.position;
-        let card = cards[currentVisit];
         let addCardData = new cardTherapist(card);
         addCardData.creatAddField(parentCard, currentVisit);
     }
@@ -203,7 +185,6 @@ cardsCaban.addEventListener('click', (e) => {
         }
     }
 });
-
 
 function creatCards (cards) {
     if(cards.length > 0) {
