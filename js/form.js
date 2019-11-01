@@ -122,8 +122,8 @@ class Form {
                 console.log(response.data.id);
                 object.id = response.data.id;
                 cards.push(object);
-                console.log(object);
-                console.log(cards);
+                // console.log(object);
+                // console.log(cards);
                 $("#new-card").parent().remove();
             } else {
                 alert(`${response.status}: ${response.statusText}`);
@@ -134,7 +134,7 @@ class Form {
             });
     }
 
-    editObjectFromCards(cardId, cardInCards){
+    editObjectFromCards(cardId, index){
         const object = {
             doctor: this.doctor,
             title: this.goal,
@@ -147,15 +147,15 @@ class Form {
         const dat = JSON.stringify(object);
 
         console.log(object);
-        console.log(authConfig);
         console.log(cardId);
+        console.log(index);
 
         axios.put(`http://cards.danit.com.ua/cards/${cardId}`, dat, authConfig).then(function (response) {
             if (response.status === 200) {
                 console.log(response.data);
-                cardInCards = response.data;
-                console.log(cardInCards);
+                cards[index] = response.data;
                 $("#edit-card").parent().remove();
+                creatCards();
             } else {
                 alert(`${response.status}: ${response.statusText}`);
             }
@@ -345,8 +345,8 @@ function modalNewVisit() {
     $("#new-card").on("submit", function(e){
         e.preventDefault();
         const data = ($(this).serializeArray());
-        console.log(data);
-        console.log(authToken);
+        // console.log(data);
+        // console.log(authToken);
         const object = {
             doctor: data[0].value,
             title: data[2].value,
@@ -386,12 +386,10 @@ function modalNewVisit() {
     })
 }
 
-function editCardObject (objectToEdit){
+function editCardObject (objectToEdit, index){
     $("#edit-card").on("submit", function(e){
         e.preventDefault();
         const data = ($(this).serializeArray());
-        console.log(data);
-        console.log(authToken);
         const object = {
             doctor: objectToEdit.doctor,
             title: data[1].value,
@@ -402,15 +400,15 @@ function editCardObject (objectToEdit){
         switch (objectToEdit.doctor) {
             case "cardiologist":
                 object.content = {
-                    name: data[0].value,
-                    pressure: data[5].value,
-                    weightIndex: data[7].value,
-                    illness: data[6].value,
-                    age: data[8].value,
-                    doctorName: data[9].value,
-                };
+                name: data[0].value,
+                pressure: data[5].value,
+                weightIndex: data[7].value,
+                illness: data[6].value,
+                age: data[8].value,
+                doctorName: data[9].value,
+            };
                 console.log(objectToEdit.id);
-                new FormCardiologist(object).editObjectFromCards(objectToEdit.id, objectToEdit);
+                new FormCardiologist(object).editObjectFromCards(objectToEdit.id, index);
                 break;
             case "dentist":
                 object.content = {
@@ -419,7 +417,7 @@ function editCardObject (objectToEdit){
                     doctorName: data[6].value,
                 };
                 console.log(objectToEdit.id);
-                new FormDentist(object).editObjectFromCards(objectToEdit.id, objectToEdit);
+                new FormDentist(object).editObjectFromCards(objectToEdit.id, index);
                 break;
             case "therapist":
                 object.content = {
@@ -428,7 +426,7 @@ function editCardObject (objectToEdit){
                     doctorName: data[6].value,
                 };
                 console.log(objectToEdit.id);
-                new FormTherapist(object).editObjectFromCards(objectToEdit.id, objectToEdit);
+                new FormTherapist(object).editObjectFromCards(objectToEdit.id, index);
                 break;
         }
     })
