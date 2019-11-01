@@ -142,6 +142,7 @@
 .cards-caban {
     display: flex;
     flex-wrap: wrap;
+    align-items: start;
 }
 .cards-caban div {
     margin: 10px;

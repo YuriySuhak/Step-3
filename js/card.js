@@ -1,40 +1,46 @@
-
 const cardsCaban = document.querySelector(".cards-caban");
 
 class visitCard {
-    constructor () {
-        this.elemBtnShow = document.createElement('button');
-        elemMore.innerText = 'show more';
-}
+    constructor (card) {
+        this.name = card.content.name;
+        this.doctor = card.doctor;
+        this.doctorName = card.content.doctorName;
+        this.status = card.status;
+        this.priority = card.priority;
+        this.description = card.description;
+        this.id = card.id;
+        this.title = card.title;
+    }
 
 firstCreat() {
-    console.log(cardsCaban);
     cardsCaban.innerHTML = '<p>No items have been added</p>';
 }
 removeElemCard () {
     cardsCaban.innerHTML = "";
 }
-creatElemCard (client, doctorName, cardId, doctor, i) {
+
+creatElemCard (i) {
         const elemCard = document.createElement('div');
         elemCard.dataset.position = i;
 
     const elemClient = document.createElement('p');
         elemClient.innerText = 'Name: ';
         const elemClientName = document.createElement('span');
-        elemClientName.innerText = client;
+        elemClientName.innerText = this.name;
+
         const elemDoctor = document.createElement('p');
         elemDoctor.innerText = 'Doctor Name: ';
         const elemDoctorName = document.createElement('span');
-        elemDoctorName.innerText = doctorName;
+        elemDoctorName.innerText = this.doctorName;
         const elemMore = document.createElement('button');
         elemMore.innerText = 'show more data';
         elemMore.classList.add('btn-more');
-        elemMore.dataset.doctor = doctor;
+        elemMore.dataset.doctor = this.doctor;
         const editBtn = document.createElement('button');
         editBtn.innerText = 'edit visit';
         editBtn.dataset.i = i;
         editBtn.dataset.edit = "edit";
-        editBtn.dataset.doctor = doctor;
+        editBtn.dataset.doctor = this.doctor;
     cardsCaban.appendChild(elemCard);
     elemCard.appendChild(elemClient);
     elemClient.appendChild(elemClientName);
@@ -42,7 +48,7 @@ creatElemCard (client, doctorName, cardId, doctor, i) {
     elemDoctor.appendChild(elemDoctorName);
     elemCard.appendChild(elemMore);
     elemCard.appendChild(editBtn);
-    elemCard.id = cardId;
+    elemCard.id = this.id;
 }
 creatCard () {
         if(cards.length > 0) {
@@ -57,101 +63,88 @@ creatCard () {
                 doctorName = cards[i].content.doctorName;
                 doctor = cards[i].doctor;
                 cardId = cards[i].id;
-                visitCard.prototype.creatElemCard(client, doctorName, cardId, doctor, i);
+                const card = cards[i];
+                visitCard.prototype.creatElemCard(card);
         }
         }
 }
 }
 
-class cardDantist {
+class cardDantist extends visitCard {
+    constructor(card, ...args) {
+        super(...args);
+        this.lastVisit = card.content.lastVisitDate;
+    }
 creatAddField(target, i) {
-    let title = cards[i].title;
-    let description = cards[i].description;
-    let priority = cards[i].priority;
-    let status = cards[i].status;
-    let doctor = cards[i].doctor;
-    let id = cards[i].id;
-    let doctorName = cards[i].content.doctorName;
-    // ----
-    let lastVisitDate = cards[i].content.lastVisitDate;
-    let name = cards[i].content.name;
-    target.innerHTML = `<p>doctor:<span>${doctor}</span></p>
-<p>name:<span>${name}</span></p>
-<p>title:<span>${title}</span></p>
-<p>priority:<span>${priority}</span></p>
-<p>status:<span>${status}</span></p>
-<p>Description:<span>${description}</span></p>
-<p>last Visit Date:<span>${lastVisitDate}</span></p>
-<p>doctor Name:<span>${doctorName}</span></p>
+    target.innerHTML = `<p>doctor:<span>${this.doctor}</span></p>
+<p>name:<span>${this.name}</span></p>
+<p>title:<span>${this.title}</span></p>
+<p>priority:<span>${this.priority}</span></p>
+<p>status:<span>${this.status}</span></p>
+<p>Description:<span>${this.description}</span></p>
+<p>last Visit Date:<span>${this.lastVisit}</span></p>
+<p>doctor Name:<span>${this.doctorName}</span></p>
 `;
     const editBtn = document.createElement('button');
     editBtn.innerText = 'edit visit';
     editBtn.dataset.i = i;
     editBtn.dataset.edit = "edit";
-    editBtn.dataset.doctor = doctor;
+    editBtn.dataset.doctor = this.doctor;
     target.appendChild(editBtn);
 }
 }
-class cardCardiologist {
+class cardCardiologist extends visitCard {
+    constructor (card, ...args) {
+        super(...args);
+        this.pressure = card.content.pressure;
+        this.weightIndex = card.content.weightIndex;
+        this.age = card.content.age;
+}
+
     creatAddField(target, i) {
-        let title = cards[i].title;
-        let description = cards[i].description;
-        let priority = cards[i].priority;
-        let status = cards[i].status;
-        let doctor = cards[i].doctor;
-        let id = cards[i].id;
-        let doctorName = cards[i].content.doctorName;
-        // ----
-        let pressure = cards[i].content.pressure;
-        let weightIndex = cards[i].content.weightIndex;
-        let age = cards[i].content.age;
-        let name = cards[i].content.name;
-        target.innerHTML = `<p>doctor:<span>${doctor}</span></p>
-<p>name:<span>${name}</span></p>
-<p>title:<span>${title}</span></p>
-<p>priority:<span>${priority}</span></p>
-<p>status:<span>${status}</span></p>
-<p>Description:<span>${description}</span></p>
-<p>pressure:<span>${pressure}</span></p>
-<p>weight Index:<span>${weightIndex}</span></p>
-<p>age:<span>${age}</span></p>
-<p>doctor Name:<span>${doctorName}</span></p>
+
+        target.innerHTML = `<p>doctor:<span>${this.doctor}</span></p>
+<p>name:<span>${this.name}</span></p>
+<p>title:<span>${this.title}</span></p>
+<p>priority:<span>${this.priority}</span></p>
+<p>status:<span>${this.status}</span></p>
+<p>Description:<span>${this.description}</span></p>
+<p>pressure:<span>${this.pressure}</span></p>
+<p>weight Index:<span>${this.weightIndex}</span></p>
+<p>age:<span>${this.age}</span></p>
+<p>doctor Name:<span>${this.doctorName}</span></p>
 `;
         const editBtn = document.createElement('button');
         editBtn.innerText = 'edit visit';
         editBtn.dataset.i = i;
         editBtn.dataset.edit = "edit";
-        editBtn.dataset.doctor = doctor;
+        editBtn.dataset.doctor = this.doctor;
         target.appendChild(editBtn);
     }
 }
 
-class cardTherapist {
+class cardTherapist extends visitCard {
+    constructor (card, ...args) {
+        super(...args);
+        this.age = card.content.age;
+        console.log(this.age);
+        console.log(this.name);
+    }
     creatAddField(target, i) {
-        let title = cards[i].title;
-        let description = cards[i].description;
-        let priority = cards[i].priority;
-        let status = cards[i].status;
-        let doctor = cards[i].doctor;
-        let id = cards[i].id;
-        let doctorName = cards[i].content.doctorName;
-        // ----
-        let age = cards[i].content.age;
-        let name = cards[i].content.name;
-        target.innerHTML = `<p>doctor:<span>${doctor}</span></p>
-<p>name:<span>${name}</span></p>
-<p>title:<span>${title}</span></p>
-<p>priority:<span>${priority}</span></p>
-<p>status:<span>${status}</span></p>
-<p>Description:<span>${description}</span></p>
-<p>age:<span>${age}</span></p>
-<p>doctor Name:<span>${doctorName}</span></p>
+        target.innerHTML = `<p>doctor:<span>${this.doctor}</span></p>
+<p>name:<span>${this.name}</span></p>
+<p>title:<span>${this.title}</span></p>
+<p>priority:<span>${this.priority}</span></p>
+<p>status:<span>${this.status}</span></p>
+<p>Description:<span>${this.description}</span></p>
+<p>age:<span>${this.age}</span></p>
+<p>doctor Name:<span>${this.doctorName}</span></p>
 `;
         const editBtn = document.createElement('button');
         editBtn.innerText = 'edit visit';
         editBtn.dataset.i = i;
         editBtn.dataset.edit = "edit";
-        editBtn.dataset.doctor = doctor;
+        editBtn.dataset.doctor = this.doctor;
         target.appendChild(editBtn);
     }
 }
@@ -173,29 +166,39 @@ class setValue {
 }
 
 visitCard.prototype.firstCreat();
-// visitCard.prototype.creatCard();
+
 document.body.addEventListener('submit', () => {
-    visitCard.prototype.creatCard();
+    creatCards ();
 });
+
 cardsCaban.addEventListener('click', (e) => {
    if (e.target.dataset.doctor == "dentist") {
        console.log(e.path[1]);
        let parentCard = e.path[1];
        let currentVisit = e.path[1].dataset.position;
        console.log(currentVisit);
-       cardDantist.prototype.creatAddField(parentCard, currentVisit);
+       let card = cards[currentVisit];
+       let addCardData = new cardDantist(card, card);
+       addCardData.creatAddField(parentCard, currentVisit);
+       // cardDantist.prototype.creatAddField(parentCard, currentVisit);
    }
     if (e.target.dataset.doctor == "cardiologist") {
         console.log(e.path[1]);
         let parentCard = e.path[1];
         let currentVisit = e.path[1].dataset.position;
-        cardCardiologist.prototype.creatAddField(parentCard, currentVisit);
+        let card = cards[currentVisit];
+        let addCardData = new cardCardiologist(card, card);
+        addCardData.creatAddField(parentCard, currentVisit);
+        // cardCardiologist.prototype.creatAddField(parentCard, currentVisit);
     }
     if (e.target.dataset.doctor == "therapist") {
         console.log(e.path[1]);
         let parentCard = e.path[1];
         let currentVisit = e.path[1].dataset.position;
-        cardTherapist.prototype.creatAddField(parentCard, currentVisit);
+        let card = cards[currentVisit];
+        let addCardData = new cardTherapist(card, card);
+        addCardData.creatAddField(parentCard, currentVisit);
+        // cardTherapist.prototype.creatAddField(parentCard, currentVisit);
     }
     if(e.target.dataset.edit) {
         console.log("dddd");
@@ -209,9 +212,11 @@ cardsCaban.addEventListener('click', (e) => {
         // selectedDoctor.dispatchEvent(autoevent);
         // ----
         const editForm = document.getElementById("edit-card");
+
         const currentDoctor = document.createElement('p');
         currentDoctor.innerText = `visit to ${e.target.dataset.doctor}`;
         editForm.parentElement.firstChild.appendChild(currentDoctor);
+
         switch (e.target.dataset.doctor){
             case "cardiologist":
                 new FormCardiologist().createInputs(optionalInputs);
@@ -228,3 +233,16 @@ cardsCaban.addEventListener('click', (e) => {
         }
     }
 });
+
+function creatCards () {
+    if(cards.length > 0) {
+        visitCard.prototype.removeElemCard();
+        for (let i = 0; i < cards.length; i++) {
+            const card = cards[i];
+            const genCard = new visitCard(card);
+            // console.log(genCard);
+            genCard.creatElemCard(i);
+            // visitCard.prototype.creatElemCard(card);
+        }
+    }
+}
