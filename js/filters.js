@@ -10,7 +10,7 @@ filterForm.addEventListener('submit', (event) => {
         }
     })
         .catch(function (error) {
-            console.log(error);
+            .log(error);
         });
 });
 
