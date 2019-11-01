@@ -133,10 +133,9 @@
     margin: 5px auto 10px;
 }
 
-#filter-cards label, #filter-submit{
+#filter-cards label {
     margin: 0 10px;
 }
-
 
 
 /*поле карток*/
@@ -151,7 +150,7 @@
     /*padding: 10px;*/
 }
 .cards-caban p {
-    font-size: 14px;
+    font-size: 16px;
     text-transform: capitalize;
     margin: 10px;
 }
