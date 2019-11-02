@@ -17,12 +17,15 @@ class Modal {
     constructor(type) {
         this.type = type;
         this.modal = document.createElement('div');
+        this.overlap = document.createElement('div');
         this.modalTitle = document.createElement('h3');
         this.modalForm = document.createElement('form');
     }
 
     render() {
         this.modal.classList.add('modal');
+        this.overlap.id = 'overlap';
+        document.getElementById('main').append(this.overlap);
         this.modalTitle.classList.add('modal-title');
         this.modal.append(this.modalTitle);
         const closeBtn = document.createElement('button');
@@ -30,6 +33,11 @@ class Modal {
         this.modal.append(closeBtn);
         closeBtn.addEventListener('click', () => {
             this.modal.remove();
+            this.overlap.remove();
+        });
+        this.overlap.addEventListener('click', () => {
+            this.modal.remove();
+            this.overlap.remove();
         });
         document.getElementById('main').append(this.modal);
 
@@ -80,6 +88,7 @@ class Modal {
 
     submitLogin() {
         const modal = this.modal;
+        const overlap = this.overlap;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         const data = {
@@ -103,6 +112,7 @@ class Modal {
                         }
                     };
                     modal.remove();
+                    document.getElementById('overlap').remove();
                     document.getElementById('loginBtn').classList.replace('disp-block', "disp-none");
                     document.getElementById('createCardBtn').classList.replace('disp-none', "disp-block");
                     getAllCards();
