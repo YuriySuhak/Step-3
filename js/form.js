@@ -115,19 +115,19 @@ class Form {
         };
 
         const dat = JSON.stringify(object);
-
-        console.log(object);
-        console.log(authConfig);
+        // console.log(object);
 
         axios.post("http://cards.danit.com.ua/cards", dat, authConfig).then(function (response) {
             if (response.status === 200) {
-                console.log(response.data.id);
+                // console.log(response.data.id);
                 object.id = response.data.id;
                 cards.push(object);
                 // console.log(object);
                 // console.log(cards);
-                document.getElementById('overlap').remove();
-                $("#new-card").parent().remove();
+                document.getElementById("overlap").remove();
+                document.getElementById("new-card").parentNode.remove();
+                filtred = {};
+                creatCards(cards);
             } else {
                 alert(`${response.status}: ${response.statusText}`);
             }
@@ -148,17 +148,16 @@ class Form {
         };
 
         const dat = JSON.stringify(object);
-
-        console.log(object);
-        console.log(cardId);
-        console.log(index);
+        // console.log(object);
+        // console.log(cardId);
+        // console.log(index);
 
         axios.put(`http://cards.danit.com.ua/cards/${cardId}`, dat, authConfig).then(function (response) {
             if (response.status === 200) {
-                console.log(response.data);
+                // console.log(response.data);
                 cards[index] = response.data;
-                document.getElementById('overlap').remove();
-                $("#edit-card").parent().remove();
+                document.getElementById("overlap").remove();
+                document.getElementById("edit-card").parentNode.remove();
                 filtred = {};
                 creatCards(cards);
             } else {
@@ -356,94 +355,113 @@ function modalNewVisit() {
                 break;
         }
     });
-
-    $("#new-card").on("submit", function (e) {
+    const newCardForm = document.getElementById("new-card");
+    newCardForm.addEventListener("submit", function (e) {
         e.preventDefault();
-        const data = ($(this).serializeArray());
+        const data = serializeForm(newCardForm);
         // console.log(data);
-        // console.log(authToken);
         const object = {
-            doctor: data[0].value,
-            title: data[2].value,
-            description: data[5].value,
-            status: data[4].value,
-            priority: data[3].value,
+            doctor: data[0],
+            title: data[2],
+            description: data[5],
+            status: data[4],
+            priority: data[3],
         };
         switch (selectedDoctor.value) {
             case "cardiologist":
                 object.content = {
-                    name: data[1].value,
-                    pressure: data[6].value,
-                    weightIndex: data[8].value,
-                    illness: data[7].value,
-                    age: data[9].value,
-                    doctorName: data[10].value,
+                    name: data[1],
+                    pressure: data[6],
+                    weightIndex: data[8],
+                    illness: data[7],
+                    age: data[9],
+                    doctorName: data[10],
                 };
                 new FormCardiologist(object).submitForm();
                 break;
             case "dentist":
                 object.content = {
-                    name: data[1].value,
-                    lastVisitDate: data[6].value,
-                    doctorName: data[7].value,
+                    name: data[1],
+                    lastVisitDate: data[6],
+                    doctorName: data[7],
                 };
                 new FormDentist(object).submitForm();
                 break;
             case "therapist":
                 object.content = {
-                    name: data[1].value,
-                    age: data[6].value,
-                    doctorName: data[7].value,
+                    name: data[1],
+                    age: data[6],
+                    doctorName: data[7],
                 };
                 new FormTherapist(object).submitForm();
                 break;
         }
-    })
+    });
 }
 
 function editCardObject(objectToEdit, index) {
-    $("#edit-card").on("submit", function (e) {
+    const editCardForm = document.getElementById("edit-card");
+    editCardForm.addEventListener("submit" , function (e) {
         e.preventDefault();
-        const data = ($(this).serializeArray());
+        const data = serializeForm(editCardForm);
+        // console.log(data);
         const object = {
             doctor: objectToEdit.doctor,
-            title: data[1].value,
-            description: data[4].value,
-            status: data[3].value,
-            priority: data[2].value,
+            title: data[1],
+            description: data[4],
+            status: data[3],
+            priority: data[2],
         };
         switch (objectToEdit.doctor) {
             case "cardiologist":
                 object.content = {
-                    name: data[0].value,
-                    pressure: data[5].value,
-                    weightIndex: data[7].value,
-                    illness: data[6].value,
-                    age: data[8].value,
-                    doctorName: data[9].value,
+                    name: data[0],
+                    pressure: data[5],
+                    weightIndex: data[7],
+                    illness: data[6],
+                    age: data[8],
+                    doctorName: data[9],
                 };
-                console.log(objectToEdit.id);
+                // console.log(objectToEdit.id);
                 new FormCardiologist(object).editObjectFromCards(objectToEdit.id, index);
                 break;
             case "dentist":
                 object.content = {
-                    name: data[0].value,
-                    lastVisitDate: data[5].value,
-                    doctorName: data[6].value,
+                    name: data[0],
+                    lastVisitDate: data[5],
+                    doctorName: data[6],
                 };
-                console.log(objectToEdit.id);
+                // console.log(objectToEdit.id);
                 new FormDentist(object).editObjectFromCards(objectToEdit.id, index);
                 break;
             case "therapist":
                 object.content = {
-                    name: data[0].value,
-                    age: data[5].value,
-                    doctorName: data[6].value,
+                    name: data[0],
+                    age: data[5],
+                    doctorName: data[6],
                 };
-                console.log(objectToEdit.id);
+                // console.log(objectToEdit.id);
                 new FormTherapist(object).editObjectFromCards(objectToEdit.id, index);
                 break;
         }
-    })
-}
+    });
+};
+
+function serializeForm(form) {
+    const serialized = [];
+    for (let i = 0; i < form.elements.length; i++) {
+        let field = form.elements[i];
+        if (!field.name || field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button') continue;
+        if (field.type === 'select-multiple') {
+            for (let n = 0; n < field.options.length; n++) {
+                if (!field.options[n].selected) continue;
+                serialized.push(`${field.options[n].value}`);
+            }
+        }
+        else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
+            serialized.push(`${field.value}`);
+        }
+    }
+    return serialized;
+};
 
