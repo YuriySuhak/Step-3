@@ -43,8 +43,6 @@ class visitCard {
             doneBtn.dataset.doctor = this.doctor;
             elemCard.appendChild(doneBtn);
         }
-
-
     }
 
     creatElemCard(i) {
@@ -55,28 +53,16 @@ class visitCard {
         } else {
             elemCard.classList = 'status-done';
         }
+        elemCard.innerHTML = `<p>name:<span>${this.name}</span></p>
+<p>doctor Name:<span>${this.doctorName}</span></p>`;
 
-        const elemClient = document.createElement('p');
-        elemClient.innerText = 'Name: ';
-        const elemClientName = document.createElement('span');
-        elemClientName.innerText = this.name;
-
-        const elemDoctor = document.createElement('p');
-        elemDoctor.innerText = 'Doctor Name: ';
-        const elemDoctorName = document.createElement('span');
-        elemDoctorName.innerText = this.doctorName;
         const elemMore = document.createElement('button');
         elemMore.innerText = 'Show more data';
         elemMore.classList.add('btn-more');
         elemMore.dataset.doctor = this.doctor;
 
         cardsCaban.appendChild(elemCard);
-        elemCard.appendChild(elemClient);
-        elemClient.appendChild(elemClientName);
-        elemCard.appendChild(elemDoctor);
-        elemDoctor.appendChild(elemDoctorName);
         elemCard.appendChild(elemMore);
-
         this.createElemBtns(elemCard, i);
         elemCard.id = this.id;
     }
