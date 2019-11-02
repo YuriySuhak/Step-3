@@ -5,13 +5,14 @@ class Input {
         this.el.id = id;
         this.el.placeholder = placeholder;
     }
-    createInput(form){
+
+    createInput(form) {
         form.append(this.el)
     }
 }
 
-class requiredInput extends Input{
-    constructor(required,...args){
+class requiredInput extends Input {
+    constructor(required, ...args) {
         super(...args);
         this.el.required = required;
     }
@@ -29,20 +30,21 @@ class Form {
         this.summary = cardObject.description || "";
         this.content = cardObject.content;
     }
+
     createInputs(form) {
         form.innerHTML = "";
 
         const nameInputLabel = document.createElement("label");
         nameInputLabel.innerText = "Пациент: ";
 
-        const nameInput = new requiredInput( "true", "input", "name", "clientName","ФИО");
+        const nameInput = new requiredInput("true", "input", "name", "clientName", "ФИО");
         nameInput.createInput(nameInputLabel);
         nameInput.el.value = this.client;
 
         const goalInputLabel = document.createElement("label");
         goalInputLabel.innerText = "Цель визита: ";
 
-        const goalInput = new requiredInput("true","input", "goal", "goalId", "Обследование");
+        const goalInput = new requiredInput("true", "input", "goal", "goalId", "Обследование");
         goalInput.createInput(goalInputLabel);
         goalInput.el.value = this.goal;
 
@@ -95,14 +97,14 @@ class Form {
         const summaryInputLabel = document.createElement("label");
         summaryInputLabel.innerText = "Краткое описание: ";
 
-        const summaryInput = new Input("textarea", "summary","summaryId", "Пациента беспокоит...");
+        const summaryInput = new Input("textarea", "summary", "summaryId", "Пациента беспокоит...");
         summaryInput.createInput(summaryInputLabel);
         summaryInput.el.value = this.summary;
 
-        form.append(nameInputLabel, goalInputLabel, urgencySelectLabel,  statusSelectLabel, summaryInputLabel);
+        form.append(nameInputLabel, goalInputLabel, urgencySelectLabel, statusSelectLabel, summaryInputLabel);
     }
 
-    submitForm(){
+    submitForm() {
         const object = {
             doctor: this.doctor,
             title: this.goal,
@@ -135,7 +137,7 @@ class Form {
             });
     }
 
-    editObjectFromCards(cardId, index){
+    editObjectFromCards(cardId, index) {
         const object = {
             doctor: this.doctor,
             title: this.goal,
@@ -170,17 +172,18 @@ class Form {
 }
 
 class FormDentist extends Form {
-    constructor(cardObject = {content: {}}){
+    constructor(cardObject = {content: {}}) {
         super(cardObject);
         this.lastVisitDate = cardObject.content.lastVisitDate || "";
         this.content = {name: this.client, lastVisitDate: this.lastVisitDate, doctorName: this.doctorName};
     }
+
     createInputs(form) {
         super.createInputs(form);
         const lastVisitDateInputLabel = document.createElement("label");
         lastVisitDateInputLabel.innerText = "Дата последнего посещения: ";
 
-        const lastVisitDateInput = new requiredInput( "true", "input", "lastVisit", "lastVisitId", "01.01.2019");
+        const lastVisitDateInput = new requiredInput("true", "input", "lastVisit", "lastVisitId", "01.01.2019");
         lastVisitDateInput.createInput(lastVisitDateInputLabel);
         lastVisitDateInput.el.value = this.content.lastVisitDate;
 
@@ -216,34 +219,42 @@ class FormDentist extends Form {
 }
 
 class FormCardiologist extends Form {
-    constructor(cardObject = {content: {}}){
+    constructor(cardObject = {content: {}}) {
         super(cardObject);
         this.pressure = cardObject.content.pressure || "";
         this.weightIndex = cardObject.content.weightIndex || "";
         this.illness = cardObject.content.illness || "";
         this.age = cardObject.content.age || "";
-        this.content = {name: this.client, pressure: this.pressure, weightIndex: this.weightIndex, illness: this.illness, age: this.age, doctorName: this.doctorName};
+        this.content = {
+            name: this.client,
+            pressure: this.pressure,
+            weightIndex: this.weightIndex,
+            illness: this.illness,
+            age: this.age,
+            doctorName: this.doctorName
+        };
     }
+
     createInputs(form) {
         super.createInputs(form);
         const pressureInputLabel = document.createElement("label");
         pressureInputLabel.innerText = "Обычное давление: ";
 
-        const pressureInput =  new requiredInput( "true", "input" , "pressure", "pressureId", "../..");
+        const pressureInput = new requiredInput("true", "input", "pressure", "pressureId", "../..");
         pressureInput.createInput(pressureInputLabel);
         pressureInput.el.value = this.pressure;
 
         const illnessInputLabel = document.createElement("label");
         illnessInputLabel.innerText = "Перенесенные заболевания: ";
 
-        const illnessInput = new requiredInput( "true", "input" , "illness", "illnessId", "...");
+        const illnessInput = new requiredInput("true", "input", "illness", "illnessId", "...");
         illnessInput.createInput(illnessInputLabel);
         illnessInput.el.value = this.illness;
 
-        const  weightIndexInputLabel = document.createElement("label");
+        const weightIndexInputLabel = document.createElement("label");
         weightIndexInputLabel.innerText = "Индекс массы тела: ";
 
-        const weightIndexInput = new requiredInput( "true", "input" , "weightIndex", "weightIndexId", "25");
+        const weightIndexInput = new requiredInput("true", "input", "weightIndex", "weightIndexId", "25");
         weightIndexInput.type = "number";
         weightIndexInput.createInput(weightIndexInputLabel);
         weightIndexInput.el.value = this.weightIndex;
@@ -251,7 +262,7 @@ class FormCardiologist extends Form {
         const ageInputLabel = document.createElement("label");
         ageInputLabel.innerText = "Возраст пациента: ";
 
-        const ageInput = new requiredInput( "true", "input" , "age", "clientAgeId", "50");
+        const ageInput = new requiredInput("true", "input", "age", "clientAgeId", "50");
         ageInput.type = "number";
         ageInput.createInput(ageInputLabel);
         ageInput.el.value = this.age;
@@ -288,17 +299,18 @@ class FormCardiologist extends Form {
 }
 
 class FormTherapist extends Form {
-    constructor(cardObject = {content: {}}){
+    constructor(cardObject = {content: {}}) {
         super(cardObject);
         this.age = cardObject.content.age || "";
         this.content = {name: this.client, age: this.age, doctorName: this.doctorName};
     }
+
     createInputs(form) {
         super.createInputs(form);
         const ageInputLabel = document.createElement("label");
         ageInputLabel.innerText = "Возраст пациента: ";
 
-        const ageInput = new requiredInput( "true", "input" , "age", "ageId", "30");
+        const ageInput = new requiredInput("true", "input", "age", "ageId", "30");
         ageInput.type = "number";
         ageInput.createInput(ageInputLabel);
         ageInput.el.value = this.age;
@@ -315,12 +327,12 @@ class FormTherapist extends Form {
 
         const therapist2 = document.createElement("option");
         therapist2.innerText = "Мурило С.И.";
-        if (this.doctorName ===  "Мурило С.И.") {
+        if (this.doctorName === "Мурило С.И.") {
             therapist2.selected = true;
         }
 
-        therapists.append(therapist1 ,therapist2);
-        const  therapistsLabel = document.createElement("label");
+        therapists.append(therapist1, therapist2);
+        const therapistsLabel = document.createElement("label");
         therapistsLabel.innerText = "Лечащий врач: ";
         therapistsLabel.append(therapists);
 
@@ -331,8 +343,8 @@ class FormTherapist extends Form {
 function modalNewVisit() {
     const optionalInputs = document.getElementById("optionalInputs");
     const selectedDoctor = document.getElementById("selectDoctor");
-    selectedDoctor.addEventListener("change", (e)=> {
-        switch (e.currentTarget.value){
+    selectedDoctor.addEventListener("change", (e) => {
+        switch (e.currentTarget.value) {
             case "cardiologist":
                 new FormCardiologist().createInputs(optionalInputs);
                 break;
@@ -345,7 +357,7 @@ function modalNewVisit() {
         }
     });
 
-    $("#new-card").on("submit", function(e){
+    $("#new-card").on("submit", function (e) {
         e.preventDefault();
         const data = ($(this).serializeArray());
         // console.log(data);
@@ -389,8 +401,8 @@ function modalNewVisit() {
     })
 }
 
-function editCardObject (objectToEdit, index){
-    $("#edit-card").on("submit", function(e){
+function editCardObject(objectToEdit, index) {
+    $("#edit-card").on("submit", function (e) {
         e.preventDefault();
         const data = ($(this).serializeArray());
         const object = {
@@ -403,13 +415,13 @@ function editCardObject (objectToEdit, index){
         switch (objectToEdit.doctor) {
             case "cardiologist":
                 object.content = {
-                name: data[0].value,
-                pressure: data[5].value,
-                weightIndex: data[7].value,
-                illness: data[6].value,
-                age: data[8].value,
-                doctorName: data[9].value,
-            };
+                    name: data[0].value,
+                    pressure: data[5].value,
+                    weightIndex: data[7].value,
+                    illness: data[6].value,
+                    age: data[8].value,
+                    doctorName: data[9].value,
+                };
                 console.log(objectToEdit.id);
                 new FormCardiologist(object).editObjectFromCards(objectToEdit.id, index);
                 break;
