@@ -124,6 +124,7 @@ class Form {
                 cards.push(object);
                 // console.log(object);
                 // console.log(cards);
+                document.getElementById('overlap').remove();
                 $("#new-card").parent().remove();
             } else {
                 alert(`${response.status}: ${response.statusText}`);
@@ -154,6 +155,7 @@ class Form {
             if (response.status === 200) {
                 console.log(response.data);
                 cards[index] = response.data;
+                document.getElementById('overlap').remove();
                 $("#edit-card").parent().remove();
                 filtred = {};
                 creatCards(cards);
