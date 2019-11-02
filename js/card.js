@@ -21,30 +21,41 @@ class visitCard {
     }
 
     createElemBtns(elemCard, i) {
+        const editField = document.createElement("div");
+        editField.classList = "drop-menu";
+        elemCard.appendChild(editField);
+
+        const editMenu = document.createElement('button');
+        editMenu.innerText = 'Edit...';
+        editMenu.dataset.menu = "menu";
+        editField.appendChild(editMenu);
+
         const editBtn = document.createElement('button');
         editBtn.innerText = 'Edit visit';
+        editBtn.hidden = true;
         editBtn.dataset.i = i;
         editBtn.dataset.edit = "edit";
         editBtn.dataset.doctor = this.doctor;
-        elemCard.appendChild(editBtn);
+        editField.appendChild(editBtn);
 
         const deleteBtn = document.createElement('button');
         deleteBtn.innerText = 'Delete visit';
+        deleteBtn.hidden = true;
         deleteBtn.dataset.i = i;
         deleteBtn.dataset.delete = "delete";
         deleteBtn.dataset.doctor = this.doctor;
-        elemCard.appendChild(deleteBtn);
+        editField.appendChild(deleteBtn);
 
         if (this.status === "open") {
             const doneBtn = document.createElement('button');
             doneBtn.innerText = 'Complete';
+            doneBtn.hidden = true;
             doneBtn.dataset.i = i;
             doneBtn.dataset.complete = "complete";
             doneBtn.dataset.doctor = this.doctor;
-            elemCard.appendChild(doneBtn);
+            editField.appendChild(doneBtn);
         }
-
-
+        return editField;
     }
 
     creatElemCard(i) {
@@ -55,30 +66,25 @@ class visitCard {
         } else {
             elemCard.classList = 'status-done';
         }
+        elemCard.innerHTML = `<p>name:<span>${this.name}</span></p>
+<p>doctor Name:<span>${this.doctorName}</span></p>`;
 
-        const elemClient = document.createElement('p');
-        elemClient.innerText = 'Name: ';
-        const elemClientName = document.createElement('span');
-        elemClientName.innerText = this.name;
 
-        const elemDoctor = document.createElement('p');
-        elemDoctor.innerText = 'Doctor Name: ';
-        const elemDoctorName = document.createElement('span');
-        elemDoctorName.innerText = this.doctorName;
+        const moreField = document.createElement("div");
+        moreField.classList = "drop-menu";
+
+
         const elemMore = document.createElement('button');
         elemMore.innerText = 'Show more data';
         elemMore.classList.add('btn-more');
         elemMore.dataset.doctor = this.doctor;
 
         cardsCaban.appendChild(elemCard);
-        elemCard.appendChild(elemClient);
-        elemClient.appendChild(elemClientName);
-        elemCard.appendChild(elemDoctor);
-        elemDoctor.appendChild(elemDoctorName);
-        elemCard.appendChild(elemMore);
-
+        elemCard.appendChild(moreField);
+        moreField.prepend(elemMore);
         this.createElemBtns(elemCard, i);
         elemCard.id = this.id;
+
     }
 
 }
@@ -151,16 +157,23 @@ class cardTherapist extends visitCard {
 visitCard.prototype.firstCreat();
 
 cardsCaban.addEventListener('click', (e) => {
-    let parentCard = e.path[1];
-    let currentVisit = e.path[1].dataset.position;
-    let currentID = e.path[1].id;
-    console.log(currentID);
-    console.log(filtred.length);
+    let parentCard = e.path[2];
+    let currentVisit = e.path[2].dataset.position;
+    let currentID = e.path[2].id;
     let card;
     if (filtred.length) {
         card = filtred[currentVisit];
     } else {
         card = cards[currentVisit];
+    }
+    if (e.target.dataset.menu) {
+        console.log(e.target.parentElement.children);
+        e.target.parentElement.children[1].hidden = false;
+        e.target.parentElement.children[2].hidden = false;
+        if (e.target.parentElement.children[3]) {
+            e.target.parentElement.children[3].hidden = false;
+        }
+        e.target.parentElement.children[0].hidden = true;
     }
     if (e.target.dataset.doctor == "dentist") {
         let addCardData = new cardDantist(card);

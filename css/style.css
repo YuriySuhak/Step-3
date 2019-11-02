@@ -159,7 +159,8 @@
     align-items: start;
 }
 
-.cards-caban div {
+.cards-caban>div {
+    position: relative;
     padding: 10px;
     margin: 10px;
     border-radius: 5px;
@@ -184,4 +185,13 @@
 
 .status-done {
     background-color: lightslategrey;
+}
+.drop-menu {
+    /*position: absolute;*/
+    /*right: 10px;*/
+/*bottom: 10px;*/
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    z-index: 5;
 }
