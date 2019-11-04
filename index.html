@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<header class="header container">
+<header class="header">
 		<img src="img/logo-header.png" alt="clinic logo" class="header-logo">
 		<div class="buttons">
 			<button id="loginBtn" class="disp-block">Войти</button>
@@ -19,7 +19,7 @@
 <main class="main container" id="main">
 
 	<form id="filter-cards">
-		<label>Цель визита: <input type="text" id="filter-title"></label>
+		<label>Цель визита: <input type="text" id="filter-title" placeholder="все"></label>
 		<label>Статус: <select name="status" id="filter-status">
 			<option value="all" selected>Все</option>
 			<option value="open">Открыт</option>
@@ -41,7 +41,7 @@
 
 </main>
 
-<footer class="footer container"><p>AJAX Clinics | Suhak Brothers & Markov Inc. | &copy; Copyright 2019</p></footer>
+<footer class="footer"><p>AJAX Clinics | Suhak Brothers & Markov Inc. | &copy; Copyright 2019</p></footer>
 
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
