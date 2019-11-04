@@ -55,15 +55,15 @@ class Modal {
         this.modalTitle.innerText = 'Авторизация';
         this.modalForm.id = 'modal-form';
         const loginLabel = document.createElement('label');
-        loginLabel.innerText = 'email: ';
+        loginLabel.innerText = 'e-mail: ';
         const loginInput = document.createElement('input');
         loginInput.type = 'email';
         loginInput.id = 'email';
         // auto Value
         loginInput.value = 'alexandr.sugak@gmail.com';
         // auto Value
-        loginLabel.append(loginInput);
         this.modalForm.append(loginLabel);
+        this.modalForm.append(loginInput);
         const passwordLabel = document.createElement('label');
         passwordLabel.innerText = 'password: ';
         const passwordInput = document.createElement('input');
@@ -72,8 +72,8 @@ class Modal {
         // auto Value
         passwordInput.value = 'tree00';
         // auto Value
-        passwordLabel.append(passwordInput);
         this.modalForm.append(passwordLabel);
+        this.modalForm.append(passwordInput);
         const loginBtn = document.createElement('input');
         loginBtn.type = 'submit';
         loginBtn.value = 'Войти';
