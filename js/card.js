@@ -26,7 +26,7 @@ class visitCard {
         elemCard.appendChild(editField);
 
         const editMenu = document.createElement('button');
-        editMenu.innerText = 'Изменить...';
+        editMenu.innerText = 'Изменить';
         editMenu.dataset.menu = "menu";
         editField.appendChild(editMenu);
 
@@ -161,8 +161,8 @@ cardsCaban.addEventListener('click', (e) => {
     let currentVisit = e.path[2].dataset.position;
     let currentID = e.path[2].id;
     let card;
-    if (filtred.length) {
-        card = filtred[currentVisit];
+    if (filtered.length) {
+        card = filtered[currentVisit];
     } else {
         card = cards[currentVisit];
     }
@@ -212,7 +212,7 @@ function deleteThisVisit(id, index) {
         if (response.status === 200) {
             console.log(response.data);
             cards.splice(index, 1);
-            filtred = {};
+            filtered = {};
             creatCards(cards);
         } else {
             alert(`${response.status}: ${response.statusText}`);
@@ -251,7 +251,7 @@ function completeVisit(cardId, data, index) {
         if (response.status === 200) {
             console.log(response.data);
             cards[index] = response.data;
-            filtred = {};
+            filtered = {};
             creatCards(cards);
         } else {
             alert(`${response.status}: ${response.statusText}`);

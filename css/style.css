@@ -6,7 +6,7 @@
 
 .header {
     height: 70px;
-    background-color: #19a566;
+    background-color: #3f80a8;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -15,6 +15,16 @@
 
 .header-logo {
     height: 70px;
+}
+
+#createCardBtn, #loginBtn {
+    padding: 8px 10px;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 3px;
+    background-color: #eb9904;
 }
 
 .disp-block {
@@ -29,7 +39,7 @@
     padding: 10px 30px;
     min-height: 520px;
     font-family: sans-serif;
-    background-color: #ebe4d2;
+
 }
 
 .footer {
@@ -39,12 +49,13 @@
     font-family: sans-serif;
     height: 70px;
     padding: 10px 30px;
-    background-color: #19a566;
+    background-color: #3f80a8;
 
 }
 
 .footer p {
-    color: #E1F433;
+    color: #ffffff;
+    font-weight: 300;
 }
 
 #overlap {
@@ -123,19 +134,26 @@
 #modal-form, #new-card, #optionalInputs, #edit-card {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    /*align-items: flex-end;*/
 }
 
 #modal-form {
-    margin-right: 50px;
+    margin: 0 10px;
 }
 
 #modal-form label, #optionalInputs label, #selectDoctor {
+    margin-bottom: 8px;
+}
+
+#modal-form input {
+    border: 1px solid #a3a3a3;
+    padding: 2px 5px;
     margin-bottom: 10px;
 }
 
 #selectDoctor {
     align-self: center;
+    padding: 2px;
 }
 
 #modal-form input, #optionalInputs input {
@@ -148,8 +166,7 @@
 
 #filter-cards {
     font-size: 14px;
-    text-align: center;
-    margin: 5px auto 10px;
+    margin: 5px 0 10px;
 }
 
 #filter-cards label {
@@ -167,10 +184,10 @@
 
 .cards-caban > div {
     width: 250px;
-    padding: 10px;
+    padding: 12px;
     margin: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.75);
+    border-radius: 3px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.4);
 }
 
 .cards-caban p {
@@ -188,11 +205,11 @@
 }
 
 .status-open {
-    background-color: #1FC678;
+    background-color: #d2e7f4;
 }
 
 .status-done {
-    background-color: lightsteelblue;
+    background-color: #eeeeee;
 }
 
 .drop-menu {
@@ -203,8 +220,10 @@
 }
 
 .drop-menu button {
-    margin: 2px;
-    border: 1px darkslateblue solid;
-    border-radius: 5px;
-    background-color: lightgray;
-}
+     margin: 2px;
+     color: #1d73a9;
+     border: 1px #52a1d2 solid;
+     border-radius: 5px;
+     background-color: #ffffff;
+     cursor: pointer;
+ }
