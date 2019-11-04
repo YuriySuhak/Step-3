@@ -1,5 +1,5 @@
 const filterForm = document.getElementById('filter-cards');
-let filtred = {};
+let filtered = {};
 filterForm.addEventListener('submit', (event) => {
     event.preventDefault();
     axios.get("http://cards.danit.com.ua/cards", authConfig).then(function (response) {
@@ -20,11 +20,11 @@ function filter() {
     const statusFilter = document.getElementById('filter-status').value;
     const priorityFilter = document.getElementById('filter-priority').value;
 
-    filtred = cards.filter((item) => {
+    filtered = cards.filter((item) => {
         return ((item.title.toLowerCase().includes(targetFilter)
             || item.description.toLowerCase().includes(targetFilter)) &&
             (item.status === statusFilter || statusFilter === 'all') &&
             (item.priority === priorityFilter || priorityFilter === 'all'));
     });
-    creatCards(filtred);
+    creatCards(filtered);
 }
