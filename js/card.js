@@ -96,11 +96,11 @@ class cardDantist extends visitCard {
     }
 
     creatAddField(target, i) {
-        target.innerHTML = `<p>Доктор:<span>${this.doctor}</span></p>
+        target.innerHTML = `<p>Доктор:<span>Стоматолог</span></p>
 <p>Пациент:<span>${this.name}</span></p>
 <p>Цель визита:<span>${this.title}</span></p>
 <p>Приоритет:<span>${this.priority}</span></p>
-<p>Статут:<span>${this.status}</span></p>
+<p>Статус:<span>${this.status}</span></p>
 <p>Описание:<span>${this.description}</span></p>
 <p>Последний визит:<span>${this.lastVisit}</span></p>
 <p>Лечащий врач:<span>${this.doctorName}</span></p>
@@ -119,11 +119,11 @@ class cardCardiologist extends visitCard {
 
     creatAddField(target, i) {
 
-        target.innerHTML = `<p>Доктор:<span>${this.doctor}</span></p>
+        target.innerHTML = `<p>Доктор:<span>Кардиолог</span></p>
 <p>Пациент:<span>${this.name}</span></p>
 <p>Цель визита:<span>${this.title}</span></p>
 <p>Приоритет:<span>${this.priority}</span></p>
-<p>Статут:<span>${this.status}</span></p>
+<p>Статус:<span>${this.status}</span></p>
 <p>Описание:<span>${this.description}</span></p>
 <p>Давление:<span>${this.pressure}</span></p>
 <p>Индекс веса:<span>${this.weightIndex}</span></p>
@@ -141,11 +141,11 @@ class cardTherapist extends visitCard {
     }
 
     creatAddField(target, i) {
-        target.innerHTML = `<p>Доктор:<span>${this.doctor}</span></p>
+        target.innerHTML = `<p>Доктор:<span>Терапевт</span></p>
 <p>Пациент:<span>${this.name}</span></p>
 <p>Цель визита:<span>${this.title}</span></p>
 <p>Приоритет:<span>${this.priority}</span></p>
-<p>Статут:<span>${this.status}</span></p>
+<p>Статус:<span>${this.status}</span></p>
 <p>Описание:<span>${this.description}</span></p>
 <p>Возраст:<span>${this.age}</span></p>
 <p>Лечащий врач:<span>${this.doctorName}</span></p>
