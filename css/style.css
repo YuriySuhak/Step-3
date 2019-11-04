@@ -166,6 +166,7 @@
 
 
 .cards-caban > div {
+    width: 250px;
     padding: 10px;
     margin: 10px;
     border-radius: 5px;
@@ -174,9 +175,9 @@
 
 .cards-caban p {
     /*text-align: center;*/
-    font-size: 15px;
+    font-size: 14px;
     text-transform: capitalize;
-    margin: 10px auto 0;
+    margin: 0 auto 7px;
     user-select: none;
 }
 
@@ -187,22 +188,23 @@
 }
 
 .status-open {
-    background-color: #19a566;
+    background-color: #1FC678;
 }
 
 .status-done {
-    background-color: lightslategrey;
+    background-color: lightsteelblue;
 }
 
 .drop-menu {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    /*margin-top: 5px;*/
 }
 
 .drop-menu button {
     margin: 2px;
-    border: 2px darkslateblue solid;
+    border: 1px darkslateblue solid;
     border-radius: 5px;
     background-color: lightgray;
 }
