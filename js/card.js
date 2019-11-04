@@ -167,7 +167,6 @@ cardsCaban.addEventListener('click', (e) => {
         card = cards[currentVisit];
     }
     if (e.target.dataset.menu) {
-        console.log(e.target.parentElement.children);
         e.target.parentElement.children[1].hidden = false;
         e.target.parentElement.children[2].hidden = false;
         if (e.target.parentElement.children[3]) {
@@ -191,12 +190,10 @@ cardsCaban.addEventListener('click', (e) => {
         // let i = e.path[1].dataset.position;
         new Modal('edit').render();
         let i = cards.findIndex(x => x.id === currentID);
-        console.log(i);
         editModal(card, i, e.target.dataset.doctor)
     }
     if (e.target.dataset.complete) {
         let i = cards.findIndex(x => x.id === currentID);
-        console.log(i);
         card.status = 'done';
         delete card.id;
         completeVisit(currentID, card, i);
@@ -210,7 +207,7 @@ cardsCaban.addEventListener('click', (e) => {
 function deleteThisVisit(id, index) {
     axios.delete(`http://cards.danit.com.ua/cards/${id}`, authConfig).then(function (response) {
         if (response.status === 200) {
-            console.log(response.data);
+
             cards.splice(index, 1);
             filtered = {};
             creatCards(cards);
@@ -224,11 +221,6 @@ function deleteThisVisit(id, index) {
 }
 
 function editModal(card, i, doctor) {
-
-    // const editForm = document.getElementById("edit-card");
-    // const currentDoctor = document.createElement('p');
-    // currentDoctor.innerText = `visit to ${doctor}`;
-    // editForm.parentElement.firstChild.appendChild(currentDoctor);
 
     switch (doctor) {
         case "cardiologist":
@@ -249,7 +241,6 @@ function editModal(card, i, doctor) {
 function completeVisit(cardId, data, index) {
     axios.put(`http://cards.danit.com.ua/cards/${cardId}`, data, authConfig).then(function (response) {
         if (response.status === 200) {
-            console.log(response.data);
             cards[index] = response.data;
             filtered = {};
             creatCards(cards);
