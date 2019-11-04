@@ -1,5 +1,4 @@
 const filterForm = document.getElementById('filter-cards');
-let filtered = {};
 filterForm.addEventListener('submit', (event) => {
     event.preventDefault();
     axios.get("http://cards.danit.com.ua/cards", authConfig).then(function (response) {

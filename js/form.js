@@ -126,7 +126,7 @@ class Form {
                 // console.log(cards);
                 document.getElementById("overlap").remove();
                 document.getElementById("new-card").parentNode.remove();
-                filtred = {};
+                filtered = {};
                 creatCards(cards);
             } else {
                 alert(`${response.status}: ${response.statusText}`);
@@ -158,7 +158,7 @@ class Form {
                 cards[index] = response.data;
                 document.getElementById("overlap").remove();
                 document.getElementById("edit-card").parentNode.remove();
-                filtred = {};
+                filtered = {};
                 creatCards(cards);
             } else {
                 alert(`${response.status}: ${response.statusText}`);
@@ -463,5 +463,5 @@ function serializeForm(form) {
         }
     }
     return serialized;
-};
+}
 
