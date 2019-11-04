@@ -52,7 +52,7 @@ class Modal {
     }
 
     login() {
-        this.modalTitle.innerText = 'Log in';
+        this.modalTitle.innerText = 'Авторизация';
         this.modalForm.id = 'modal-form';
         const loginLabel = document.createElement('label');
         loginLabel.innerText = 'email: ';
@@ -76,7 +76,7 @@ class Modal {
         this.modalForm.append(passwordLabel);
         const loginBtn = document.createElement('input');
         loginBtn.type = 'submit';
-        loginBtn.value = 'Login';
+        loginBtn.value = 'Войти';
         loginBtn.classList.add('form-button');
         this.modalForm.append(loginBtn);
         this.modal.append(this.modalForm);
@@ -128,7 +128,7 @@ class Modal {
 
     createForm() {
         this.modal.append(this.modalForm);
-        this.modalTitle.innerText = 'New Card';
+        this.modalTitle.innerText = 'Новый визит';
         this.modalForm.id = 'new-card';
 
         const selectDoctor = document.createElement('select');
@@ -161,7 +161,7 @@ class Modal {
         const createNewCardBtn = document.createElement('input');
         createNewCardBtn.type = 'submit';
         createNewCardBtn.id = 'create-new-card-btn';
-        createNewCardBtn.value = 'Create';
+        createNewCardBtn.value = 'Создать';
         createNewCardBtn.classList.add('create-new-card-btn');
 
         modalNewVisit();
@@ -170,7 +170,7 @@ class Modal {
 
     editForm() {
         this.modal.append(this.modalForm);
-        this.modalTitle.innerText = 'Edit Card';
+        this.modalTitle.innerText = 'Редактировать визит';
         this.modalForm.id = 'edit-card';
 
         const optionalInputs = document.createElement('fieldset');
@@ -180,7 +180,7 @@ class Modal {
         const editCardBtn = document.createElement('input');
         editCardBtn.type = 'submit';
         editCardBtn.id = 'edit-card-btn';
-        editCardBtn.value = 'Edit';
+        editCardBtn.value = 'Изменить';
         editCardBtn.classList.add('edit-card-btn');
 
 
