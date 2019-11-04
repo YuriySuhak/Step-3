@@ -2,7 +2,7 @@ initialize();
 
 function initialize() {
     const loginBtn = document.getElementById('loginBtn');
-    loginBtn.addEventListener('click', () => {
+    loginBtn.addEventListener('click', (e) => {
         new Modal('login').render();
     });
 
@@ -24,6 +24,7 @@ class Modal {
 
     render() {
         this.modal.classList.add('modal');
+        // this.modal.style.top=
         this.overlap.id = 'overlap';
         document.getElementById('main').append(this.overlap);
         this.modalTitle.classList.add('modal-title');
@@ -162,10 +163,10 @@ class Modal {
         createNewCardBtn.type = 'submit';
         createNewCardBtn.id = 'create-new-card-btn';
         createNewCardBtn.value = 'Создать';
-        createNewCardBtn.classList.add('create-new-card-btn');
+        createNewCardBtn.classList.add('create-new-card-btn', 'disp-none');
+        this.modalForm.append(createNewCardBtn);
 
         modalNewVisit();
-        this.modalForm.append(createNewCardBtn);
     }
 
     editForm() {

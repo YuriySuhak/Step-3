@@ -343,6 +343,7 @@ function modalNewVisit() {
     const optionalInputs = document.getElementById("optionalInputs");
     const selectedDoctor = document.getElementById("selectDoctor");
     selectedDoctor.addEventListener("change", (e) => {
+        document.getElementById('create-new-card-btn').classList.replace('disp-none', 'disp-block');
         switch (e.currentTarget.value) {
             case "cardiologist":
                 new FormCardiologist().createInputs(optionalInputs);
