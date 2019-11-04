@@ -26,12 +26,12 @@ class visitCard {
         elemCard.appendChild(editField);
 
         const editMenu = document.createElement('button');
-        editMenu.innerText = 'Edit...';
+        editMenu.innerText = 'Изменить...';
         editMenu.dataset.menu = "menu";
         editField.appendChild(editMenu);
 
         const editBtn = document.createElement('button');
-        editBtn.innerText = 'Edit visit';
+        editBtn.innerText = 'Редактировать';
         editBtn.hidden = true;
         editBtn.dataset.i = i;
         editBtn.dataset.edit = "edit";
@@ -39,7 +39,7 @@ class visitCard {
         editField.appendChild(editBtn);
 
         const deleteBtn = document.createElement('button');
-        deleteBtn.innerText = 'Delete visit';
+        deleteBtn.innerText = 'Удалить';
         deleteBtn.hidden = true;
         deleteBtn.dataset.i = i;
         deleteBtn.dataset.delete = "delete";
@@ -48,7 +48,7 @@ class visitCard {
 
         if (this.status === "open") {
             const doneBtn = document.createElement('button');
-            doneBtn.innerText = 'Complete';
+            doneBtn.innerText = 'Завершить';
             doneBtn.hidden = true;
             doneBtn.dataset.i = i;
             doneBtn.dataset.complete = "complete";
@@ -66,8 +66,8 @@ class visitCard {
         } else {
             elemCard.classList = 'status-done';
         }
-        elemCard.innerHTML = `<p>name:<span>${this.name}</span></p>
-<p>doctor Name:<span>${this.doctorName}</span></p>`;
+        elemCard.innerHTML = `<p>Пациент:<span>${this.name}</span></p>
+<p>Лечащий врач:<span>${this.doctorName}</span></p>`;
 
 
         const moreField = document.createElement("div");
@@ -75,7 +75,7 @@ class visitCard {
 
 
         const elemMore = document.createElement('button');
-        elemMore.innerText = 'Show more data';
+        elemMore.innerText = 'Показать больше';
         elemMore.classList.add('btn-more');
         elemMore.dataset.doctor = this.doctor;
 
@@ -96,14 +96,14 @@ class cardDantist extends visitCard {
     }
 
     creatAddField(target, i) {
-        target.innerHTML = `<p>doctor:<span>${this.doctor}</span></p>
-<p>name:<span>${this.name}</span></p>
-<p>title:<span>${this.title}</span></p>
-<p>priority:<span>${this.priority}</span></p>
-<p>status:<span>${this.status}</span></p>
-<p>Description:<span>${this.description}</span></p>
-<p>last Visit Date:<span>${this.lastVisit}</span></p>
-<p>doctor Name:<span>${this.doctorName}</span></p>
+        target.innerHTML = `<p>Доктор:<span>${this.doctor}</span></p>
+<p>Пациент:<span>${this.name}</span></p>
+<p>Цель визита:<span>${this.title}</span></p>
+<p>Приоритет:<span>${this.priority}</span></p>
+<p>Статут:<span>${this.status}</span></p>
+<p>Описание:<span>${this.description}</span></p>
+<p>Последний визит:<span>${this.lastVisit}</span></p>
+<p>Лечащий врач:<span>${this.doctorName}</span></p>
 `;
         super.createElemBtns(target, i);
     }
@@ -119,16 +119,16 @@ class cardCardiologist extends visitCard {
 
     creatAddField(target, i) {
 
-        target.innerHTML = `<p>doctor:<span>${this.doctor}</span></p>
-<p>name:<span>${this.name}</span></p>
-<p>title:<span>${this.title}</span></p>
-<p>priority:<span>${this.priority}</span></p>
-<p>status:<span>${this.status}</span></p>
-<p>Description:<span>${this.description}</span></p>
-<p>pressure:<span>${this.pressure}</span></p>
-<p>weight Index:<span>${this.weightIndex}</span></p>
-<p>age:<span>${this.age}</span></p>
-<p>doctor Name:<span>${this.doctorName}</span></p>
+        target.innerHTML = `<p>Доктор:<span>${this.doctor}</span></p>
+<p>Пациент:<span>${this.name}</span></p>
+<p>Цель визита:<span>${this.title}</span></p>
+<p>Приоритет:<span>${this.priority}</span></p>
+<p>Статут:<span>${this.status}</span></p>
+<p>Описание:<span>${this.description}</span></p>
+<p>Давление:<span>${this.pressure}</span></p>
+<p>Индекс веса:<span>${this.weightIndex}</span></p>
+<p>Возраст:<span>${this.age}</span></p>
+<p>Лечащий врач:<span>${this.doctorName}</span></p>
 `;
         super.createElemBtns(target, i);
     }
@@ -141,14 +141,14 @@ class cardTherapist extends visitCard {
     }
 
     creatAddField(target, i) {
-        target.innerHTML = `<p>doctor:<span>${this.doctor}</span></p>
-<p>name:<span>${this.name}</span></p>
-<p>title:<span>${this.title}</span></p>
-<p>priority:<span>${this.priority}</span></p>
-<p>status:<span>${this.status}</span></p>
-<p>Description:<span>${this.description}</span></p>
-<p>age:<span>${this.age}</span></p>
-<p>doctor Name:<span>${this.doctorName}</span></p>
+        target.innerHTML = `<p>Доктор:<span>${this.doctor}</span></p>
+<p>Пациент:<span>${this.name}</span></p>
+<p>Цель визита:<span>${this.title}</span></p>
+<p>Приоритет:<span>${this.priority}</span></p>
+<p>Статут:<span>${this.status}</span></p>
+<p>Описание:<span>${this.description}</span></p>
+<p>Возраст:<span>${this.age}</span></p>
+<p>Лечащий врач:<span>${this.doctorName}</span></p>
 `;
         super.createElemBtns(target, i);
     }
@@ -225,10 +225,10 @@ function deleteThisVisit(id, index) {
 
 function editModal(card, i, doctor) {
 
-    const editForm = document.getElementById("edit-card");
-    const currentDoctor = document.createElement('p');
-    currentDoctor.innerText = `visit to ${doctor}`;
-    editForm.parentElement.firstChild.appendChild(currentDoctor);
+    // const editForm = document.getElementById("edit-card");
+    // const currentDoctor = document.createElement('p');
+    // currentDoctor.innerText = `visit to ${doctor}`;
+    // editForm.parentElement.firstChild.appendChild(currentDoctor);
 
     switch (doctor) {
         case "cardiologist":
