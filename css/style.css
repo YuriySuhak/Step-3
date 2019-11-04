@@ -77,8 +77,9 @@
 
 .modal-title {
     font-size: 18px;
+    line-height: 1.2em;
     text-align: center;
-    padding-bottom: 12px;
+    padding-bottom: 10px;
     margin-bottom: 20px;
     border-bottom: 1px solid #cccccc;
 }
@@ -163,6 +164,7 @@
     align-items: start;
 }
 
+
 .cards-caban > div {
     padding: 10px;
     margin: 10px;
@@ -171,9 +173,10 @@
 }
 
 .cards-caban p {
+    text-align: center;
     font-size: 15px;
     text-transform: capitalize;
-    margin-bottom: 10px;
+    margin: 10px auto 0;
 }
 
 .cards-caban span {
@@ -183,7 +186,7 @@
 }
 
 .status-open {
-    background-color: lightseagreen;
+    background-color: #19a566;
 }
 
 .status-done {

@@ -270,6 +270,8 @@ function creatCards(cards) {
             const genCard = new visitCard(card);
             genCard.creatElemCard(i);
         }
+    } else {
+        visitCard.prototype.firstCreat();
     }
 }
 
