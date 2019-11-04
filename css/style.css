@@ -177,6 +177,7 @@
     font-size: 15px;
     text-transform: capitalize;
     margin: 10px auto 0;
+    user-select: none;
 }
 
 .cards-caban span {
