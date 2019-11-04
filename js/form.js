@@ -114,16 +114,12 @@ class Form {
             content: this.content
         };
 
-        const dat = JSON.stringify(object);
-        // console.log(object);
+        const dat = JSON.stringify(object)
 
         axios.post("http://cards.danit.com.ua/cards", dat, authConfig).then(function (response) {
             if (response.status === 200) {
-                // console.log(response.data.id);
                 object.id = response.data.id;
                 cards.push(object);
-                // console.log(object);
-                // console.log(cards);
                 document.getElementById("overlap").remove();
                 document.getElementById("new-card").parentNode.remove();
                 filtered = {};
@@ -148,13 +144,9 @@ class Form {
         };
 
         const dat = JSON.stringify(object);
-        // console.log(object);
-        // console.log(cardId);
-        // console.log(index);
 
         axios.put(`http://cards.danit.com.ua/cards/${cardId}`, dat, authConfig).then(function (response) {
             if (response.status === 200) {
-                // console.log(response.data);
                 cards[index] = response.data;
                 document.getElementById("overlap").remove();
                 document.getElementById("edit-card").parentNode.remove();
@@ -359,7 +351,6 @@ function modalNewVisit() {
     newCardForm.addEventListener("submit", function (e) {
         e.preventDefault();
         const data = serializeForm(newCardForm);
-        // console.log(data);
         const object = {
             doctor: data[0],
             title: data[2],
@@ -404,7 +395,6 @@ function editCardObject(objectToEdit, index) {
     editCardForm.addEventListener("submit" , function (e) {
         e.preventDefault();
         const data = serializeForm(editCardForm);
-        // console.log(data);
         const object = {
             doctor: objectToEdit.doctor,
             title: data[1],
@@ -422,7 +412,6 @@ function editCardObject(objectToEdit, index) {
                     age: data[8],
                     doctorName: data[9],
                 };
-                // console.log(objectToEdit.id);
                 new FormCardiologist(object).editObjectFromCards(objectToEdit.id, index);
                 break;
             case "dentist":
@@ -431,7 +420,6 @@ function editCardObject(objectToEdit, index) {
                     lastVisitDate: data[5],
                     doctorName: data[6],
                 };
-                // console.log(objectToEdit.id);
                 new FormDentist(object).editObjectFromCards(objectToEdit.id, index);
                 break;
             case "therapist":
@@ -440,7 +428,6 @@ function editCardObject(objectToEdit, index) {
                     age: data[5],
                     doctorName: data[6],
                 };
-                // console.log(objectToEdit.id);
                 new FormTherapist(object).editObjectFromCards(objectToEdit.id, index);
                 break;
         }
