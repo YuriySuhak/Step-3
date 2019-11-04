@@ -188,11 +188,11 @@
 }
 
 .status-open {
-    background-color: #19a566;
+    background-color: #1FC678;
 }
 
 .status-done {
-    background-color: lightslategrey;
+    background-color: lightsteelblue;
 }
 
 .drop-menu {
@@ -204,7 +204,7 @@
 
 .drop-menu button {
     margin: 2px;
-    border: 2px darkslateblue solid;
+    border: 1px darkslateblue solid;
     border-radius: 5px;
     background-color: lightgray;
 }
