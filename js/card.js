@@ -272,3 +272,9 @@ function creatCards(cards) {
         }
     }
 }
+
+const sortable = document.getElementById('sortable');
+Sortable.create(sortable, {
+    forceFallback: true,
+    animation: 100,
+});
